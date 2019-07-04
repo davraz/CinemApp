@@ -19,6 +19,7 @@ class CreateUsuarioTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('email')->unique();
+            $table->string('rol');
             $table->timestamps();
         });
     }
