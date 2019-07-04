@@ -25,15 +25,15 @@ class FuncionesTableSeeder extends Seeder
                 Funcion::insert([
                     'pelicula_id' => $pelicula->id,
                     'sala_id' => $sala->id,
-                    'hora_inicio' => Carbon::now(),
-                    'hora_fin' => Carbon::now()
+                    'hora_inicio' => Carbon::tomorrow()->addHours(8),
+                    'hora_fin' => Carbon::tomorrow()->addHours(10)
                 ]);
 
                 Funcion::insert([
                     'pelicula_id' => $pelicula->id,
                     'sala_id' => $sala->id,
-                    'hora_inicio' => Carbon::now(),
-                    'hora_fin' => Carbon::now()
+                    'hora_inicio' => Carbon::tomorrow()->addHours(16),
+                    'hora_fin' => Carbon::tomorrow()->addHours(18)
                 ]);
             }
         }
