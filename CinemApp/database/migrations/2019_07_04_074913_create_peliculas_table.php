@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSillaTable extends Migration
+class CreatePeliculasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateSillaTable extends Migration
      */
     public function up()
     {
-        Schema::create('silla', function (Blueprint $table) {
+        Schema::create('peliculas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->char('letra',1);
-            $table->integer('numero');
-            $table->string('tipo');
-            $table->UnsignedbigInteger('sala_id');
-            $table->foreign('sala_id')
-                ->references('id')->on('sala')
-                ->onDelete('cascade');
+            $table->string('titulo');
+            $table->string('director');
+            $table->integer('duracion');
+            $table->string('genero');
+            $table->string('censura');
+            $table->string('portada');
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ class CreateSillaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('silla');
+        Schema::dropIfExists('peliculas');
     }
 }

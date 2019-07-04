@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReservaTable extends Migration
+class CreateReservasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,20 @@ class CreateReservaTable extends Migration
      */
     public function up()
     {
-        Schema::create('reserva', function (Blueprint $table) {
+        Schema::create('reservas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('funcion_id'); 
+            $table->integer('estado');
+            $table->unsignedBigInteger('funcion_id');
             $table->foreign('funcion_id')
-                ->references('id')->on('funcion')
+                ->references('id')->on('funciones')
                 ->onDelete('cascade');
             $table->UnsignedBigInteger('silla_id');
             $table->foreign('silla_id')
-                ->references('id')->on('silla')
+                ->references('id')->on('sillas')
                 ->onDelete('cascade');
             $table->integer('usuario_id');
             $table->foreign('usuario_id')
-                ->references('cedula')->on('usuario')
+                ->references('cedula')->on('usuarios')
                 ->onDelete('cascade');
             $table->timestamps();
         });
@@ -38,6 +39,6 @@ class CreateReservaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reserva');
+        Schema::dropIfExists('reservas');
     }
 }
