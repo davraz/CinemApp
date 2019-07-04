@@ -19,6 +19,10 @@ class CreateFuncionTable extends Migration
             $table->foreign('pelicula_id')
                 ->references('id')->on('pelicula')
                 ->onDelete('cascade');
+            $table->UnsignedBigInteger('sala_id');
+            $table->foreign('sala_id')
+                ->references('id')->on('sala')
+                ->onDelete('cascade');
             $table->time('HoraInicio');
             $table->time('HoraFin');
             $table->timestamps();

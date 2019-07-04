@@ -15,11 +15,7 @@ class CreateSalaTable extends Migration
     {
         Schema::create('sala', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
-            $table->UnsignedBigInteger('funcion_id');
-            $table->foreign('funcion_id')
-                ->references('id')->on('funcion')
-                ->onDelete('cascade');
+            $table->timestamps();            
         });
     }
 
