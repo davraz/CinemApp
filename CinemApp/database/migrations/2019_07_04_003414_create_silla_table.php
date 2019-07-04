@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFuncionTable extends Migration
+class CreateSillaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateFuncionTable extends Migration
      */
     public function up()
     {
-        Schema::create('funcion', function (Blueprint $table) {
-            $table->BigIncrements('id');
-            $table->unsignedBigInteger('pelicula_id'); 
-            $table->foreign('pelicula_id')
-                ->references('id')->on('pelicula')
+        Schema::create('silla', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->char('letra',1);
+            $table->integer('numero');
+            $table->string('tipo');
+            $table->UnsignedbigInteger('sala_id');
+            $table->foreign('sala_id')
+                ->references('id')->on('sala')
                 ->onDelete('cascade');
-            $table->time('HoraInicio');
-            $table->time('HoraFin');
             $table->timestamps();
         });
-
     }
 
     /**
@@ -33,6 +33,6 @@ class CreateFuncionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('funcion');
+        Schema::dropIfExists('silla');
     }
 }
