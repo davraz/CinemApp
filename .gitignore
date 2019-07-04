@@ -18,3 +18,9 @@ Homestead.json
 
 # Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
 .rocketeer/
+CinemApp/.idea/vcs.xml
+CinemApp/.idea/php.xml
+CinemApp/.idea/modules.xml
+CinemApp/.idea/misc.xml
+CinemApp/.idea/CinemApp.iml
+CinemApp/.idea/workspace.xml
