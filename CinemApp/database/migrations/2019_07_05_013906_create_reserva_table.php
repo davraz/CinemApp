@@ -23,6 +23,10 @@ class CreateReservaTable extends Migration
             $table->foreign('silla_id')
                 ->references('id')->on('silla')
                 ->onDelete('cascade');
+            $table->integer('usuario_id');
+            $table->foreign('usuario_id')
+                ->references('cedula')->on('usuario')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
