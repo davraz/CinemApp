@@ -26,8 +26,6 @@ class ReservasController extends Controller
 
         $reservas = Reserva::where('usuario_id', $usuario->id)->withCount('silla')->get();
 
-       // dd($reservas);
-
         return view('gestionarReservas', [
             'reservas' => $reservas
         ]);
@@ -96,6 +94,20 @@ class ReservasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $reserva = Reserva::findOrFail($id);
+
+        if ($this->reservaPaga($reserva))
+        {
+            return redirect('/reservas')->withErrors(['La reserva no se puede eliminar porque ya se encuentra paga']);
+        }
+
+        $reserva->delete();
+
+        return redirect('/reservas')->with('message', 'Reserva eliminada correctamente');
+    }
+
+    public function reservaPaga($reserva)
+    {
+        return $reserva->estado == 'Pagada';
     }
 }

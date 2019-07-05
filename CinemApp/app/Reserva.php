@@ -20,5 +20,4 @@ class Reserva extends Model
     {
         return $this->belongsTo(Silla::class);
     }
-
 }

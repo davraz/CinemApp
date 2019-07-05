@@ -15,6 +15,11 @@ class ReservasTableSeeder extends Seeder
      */
     public function run()
     {
+        $estados = array(
+            'Pendiente',
+            'Pagada',
+        );
+
         $usuarios = $this->getUsuarios();
         $funciones = $this->getFunciones();
 
@@ -24,8 +29,11 @@ class ReservasTableSeeder extends Seeder
             {
                 $silla = $this->getRandomSilla($funcion);
 
+                $key = array_rand($estados);
+                $estado = $estados[$key];
+
                 Reserva::insert([
-                    'estado' => 'Pendiente',
+                    'estado' => $estado,
                     'funcion_id' => $funcion->id,
                     'usuario_id' => $usuario->id,
                     'silla_id' => $silla->id
