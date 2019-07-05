@@ -10,7 +10,7 @@
     @endif
     <form class="form-signin">
         <label for="inputdate" class="sr-only">Fecha</label>
-        <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date">
+        <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date" style="width: 200px; display:inline-block;" >
         <button type="submit" id="buttonBuscar">Buscar</button>
     </form>
     @isset($peliculas)
