@@ -16,59 +16,21 @@
                 {{session('message')}}
             </div>
         @endif
-        @isset($reservas)
-            @foreach($reservas as $reserva)
-
-                <form action="/reservas/{{$reserva->id}}" method="post">
-                    @csrf
-                    @method('delete')
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>
-                                <strong>{{$reserva->funcion->pelicula->titulo}}</strong>
-                            </h4>
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                <strong>Fecha: </strong>{{Carbon\Carbon::parse($reserva->funcion->hora_inicio)->format('Y-m-d')}}
-                                <strong>Hora: </strong> {{Carbon\Carbon::parse($reserva->funcion->hora_inicio)->format('h:i A')}}
-                            </p>
-                            <p class="card-text"><strong>Sala: </strong>{{$reserva->funcion->sala->numero}}</p>
-                            <p class="card-text">
-                                <strong>Total: </strong>{{$reserva->silla_count * $reserva->silla->precio()}}</p>
-                            <p class="card-text"><strong>Estado: </strong>{{$reserva->estado}}</p>
-                            <a href="#" class="btn btn-success">Pagar</a>
-                            <button type="submit" href="#" class="btn btn-danger">Eliminar</button>
-                            <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{$reserva->id}}"
-                               role="button"
-                               aria-expanded="false" aria-controls="collapseExample">
-                                Expandir
-                            </a>
-                        </div>
-                        <div class="card-footer collapse" id="collapse{{$reserva->id}}">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col">Silla</th>
-                                    <th scope="col">Tipo</th>
-                                    <th scope="col">Precio</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">{{$reserva->silla->letra . $reserva->silla->numero}}</th>
-                                    <td>{{$reserva->silla->tipo}}</td>
-                                    <td>{{$reserva->silla->precio()}}</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </form>
-
+        @if(isset($reserva) && isset($mediosDePago))
+            <form method="post" action="/reservas/{{$reserva->id}}/pagar">
+                @csrf
+                <h4>Seleccione el medio de pago</h4>
+                <select name="medioDePago" class="form-control" name="product_id">
+                    @foreach ($mediosDePago as $medioDePago)
+                        <option value="{{ $medioDePago->id }}">
+                            {{ $medioDePago->tipo }}
+                        </option>
+                    @endforeach
+                </select>
                 <br/>
-            @endforeach
-        @endisset
+                <input type="submit" class="btn btn-success" value="Pagar">
+            </form>
+
+        @endif
     </div>
 @endsection

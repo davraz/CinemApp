@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MedioDePago;
 use App\Reserva;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -106,17 +107,53 @@ class ReservasController extends Controller
         return redirect('/reservas')->with('message', 'Reserva eliminada correctamente');
     }
 
-    public function pagarReserva($id)
+    public function confirmarPagarReserva(Request $request, $id)
     {
         $reserva = Reserva::findOrFail($id);
 
+        $usuario = $request->user();
+
+        $mediosDePago = MedioDePago::where('usuario_id', $usuario->id)->get();
+
         return view('pagarReserva',[
-            'reserva' => $reserva
+            'reserva' => $reserva,
+            'mediosDePago' => $mediosDePago
         ]);
+    }
+
+    public function pagarReserva(Request $request, $id)
+    {
+        $medioDePagoID = $request['medioDePago'];
+
+        $reserva = Reserva::findOrFail($id);
+
+        $usuario = $request->user();
+
+        $medioDePago = MedioDePago::find($medioDePagoID);
+
+        if ($this->saldoSuficiente($reserva, $medioDePago))
+        {
+            $medioDePago->saldo = $medioDePago->saldo - $reserva->silla->precio();
+            $medioDePago->save();
+
+            $reserva->estado = 'Pagada';
+            $reserva->save();
+
+            return redirect('reservas/' . $id . '/pagar')->with('message', 'Pago realizado con éxito');
+        }
+        else {
+            return redirect('reservas/' . $id . '/pagar')->withErrors(['El medio de pago seleccionado no cuenta con saldo suficiente para realizar el pago']);
+        }
+
     }
 
     public function reservaPaga($reserva)
     {
         return $reserva->estado == 'Pagada';
+    }
+
+    public function saldoSuficiente($reserva, $medioDePago)
+    {
+        return $reserva->silla->precio() < $medioDePago->saldo;
     }
 }
