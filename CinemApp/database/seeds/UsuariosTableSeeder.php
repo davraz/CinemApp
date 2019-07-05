@@ -15,7 +15,7 @@ class UsuariosTableSeeder extends Seeder
     public function run()
     {
         DB::table('usuarios')->insert([
-            'cedula' => 1017213810,
+            'cedula' => '1017213810',
             'nombre' => 'Jose',
             'apellido' => 'Restrepo',
             'email' => 'david-restre@hotmail.com',
@@ -24,7 +24,7 @@ class UsuariosTableSeeder extends Seeder
         ]);
 
         DB::table('usuarios')->insert([
-            'cedula' => 11111111,
+            'cedula' => '11111111',
             'nombre' => 'David',
             'apellido' => 'Alcaraz',
             'email' => 'david@gmail.com',
