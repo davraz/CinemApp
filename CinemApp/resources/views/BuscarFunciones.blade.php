@@ -37,7 +37,7 @@
                             </p>
                             @isset($pelicula->funciones)
                                 @foreach($pelicula->funciones as $funcion)
-                                    <a href="#">{{$funcion->hora_inicio}}</a>
+                                    <a href="#">{{ Carbon\Carbon::parse($funcion['hora_inicio'])->format('h:i A') }}</a>
                                 @endforeach
                             @endisset
                         </div>
