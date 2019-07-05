@@ -21,9 +21,12 @@ class FuncionesController extends Controller
             $date = $validData['date'];
 
             $peliculas = Pelicula::whereHas('funciones', function ($query) use ($date) {
-                $query->where('hora_inicio', '>=', date($date));
-                $query->where('hora_inicio', '<=', date($date).' 23:59:59');
-            })->get();
+                $query->where('hora_inicio', '>=', date($date))
+                    ->where('hora_inicio', '<=', date($date).' 23:59:59');
+            })->with(['funciones' => function($query) use($date) {
+                $query->where('hora_inicio', '>=', date($date))
+                    ->where('hora_inicio', '<=', date($date).' 23:59:59');
+            }])->get();
 
             if($peliculas->isEmpty()){
                 $mensaje = "No hay funciones programadas para la fecha seleccionada";

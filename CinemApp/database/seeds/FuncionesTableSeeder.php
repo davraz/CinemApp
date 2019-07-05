@@ -35,6 +35,13 @@ class FuncionesTableSeeder extends Seeder
                     'hora_inicio' => Carbon::tomorrow()->addHours(16),
                     'hora_fin' => Carbon::tomorrow()->addHours(18)
                 ]);
+
+                Funcion::insert([
+                    'pelicula_id' => $pelicula->id,
+                    'sala_id' => $sala->id,
+                    'hora_inicio' => Carbon::tomorrow()->addDay()->addHours(15),
+                    'hora_fin' => Carbon::tomorrow()->addDay()->addHours(17)
+                ]);
             }
         }
     }

@@ -36,9 +36,13 @@
                                 <small class="text-muted">Last updated 3 mins ago</small>
                             </p>
                             @isset($pelicula->funciones)
-                                @foreach($pelicula->funciones as $funcion)
-                                    <a href="#">{{ Carbon\Carbon::parse($funcion['hora_inicio'])->format('h:i A') }}</a>
-                                @endforeach
+                                <ul>
+                                    @foreach($pelicula->funciones as $funcion)
+                                        <li>
+                                            <a href="#">{{ "Sala: " . $funcion->sala->numero . " - " . Carbon\Carbon::parse($funcion['hora_inicio'])->format('h:i A') }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             @endisset
                         </div>
                     </div>
