@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container">
+        <h1 class="text-center">Gestionar Reservas</h1>
+
         @if($errors->any())
             <div class="alert alert-danger">
                 @foreach($errors->all() as $error)

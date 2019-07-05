@@ -2,6 +2,7 @@
 
     @section('content')
     <div class="container">
+        <h1 class="text-center">Buscar Funciones</h1>
         <form class="form-signin" style="padding-bottom:25px;">
             <label for="inputdate" class="sr-only">Fecha</label>
             <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date" value="{{ old('date') }}"
