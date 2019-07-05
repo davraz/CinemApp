@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Pelicula;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -19,9 +18,11 @@ class FuncionesController extends Controller
 
         if (array_key_exists('date', $validData)) {
             $date = $validData['date'];
-            $date = new Carbon($date);
 
-            $peliculas = Pelicula::all();
+            $peliculas = Pelicula::whereHas('funciones', function ($query) use ($date) {
+                $query->where('hora_inicio', '>=', date($date));
+                $query->where('hora_inicio', '<=', date($date).' 23:59:59');
+            })->get();
         }
 
         return view('BuscarFunciones', [
