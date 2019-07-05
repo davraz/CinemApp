@@ -20,7 +20,7 @@ class UsuariosTableSeeder extends Seeder
             'apellido' => 'Restrepo',
             'email' => 'david-restre@hotmail.com',
             'rol' => 'Cliente',
-            'password' => Hash::make('1234')
+            'password' => Hash::make('abcd1234')
         ]);
 
         DB::table('usuarios')->insert([
@@ -29,7 +29,7 @@ class UsuariosTableSeeder extends Seeder
             'apellido' => 'Alcaraz',
             'email' => 'david@gmail.com',
             'rol' => 'Cliente',
-            'password' => Hash::make('1234')
+            'password' => Hash::make('abcd1234')
         ]);
     }
 }
