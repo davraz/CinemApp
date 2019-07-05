@@ -11,8 +11,4 @@
 |
 */
 
-Route::get('/BuscarFunciones', 'FuncionesController@buscarFunciones');
-
-Route::get('/funciones', function () {
-    return view('Funciones');
-});
+Route::get('/BuscarFunciones', 'FuncionesController@find');
