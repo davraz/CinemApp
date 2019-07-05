@@ -15,8 +15,16 @@ class UsuariosTableSeeder extends Seeder
     {
         DB::table('usuarios')->insert([
             'cedula' => 1017213810,
-            'nombre' => 'Jose David',
-            'apellido' => 'Restrepo Duque',
+            'nombre' => 'Jose',
+            'apellido' => 'Restrepo',
+            'email' => Str::random(10) . '@gmail.com',
+            'rol' => 'Cliente'
+        ]);
+
+        DB::table('usuarios')->insert([
+            'cedula' => 11111111,
+            'nombre' => 'David',
+            'apellido' => 'Alcaraz',
             'email' => Str::random(10) . '@gmail.com',
             'rol' => 'Cliente'
         ]);
