@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             SalasTableSeeder::class,
             SillasTableSeeder::class,
             FuncionesTableSeeder::class,
-            ReservasTableSeeder::class
+            ReservasTableSeeder::class,
+            MediosDePagoTableSeeder::class
         ]);
     }
 }
