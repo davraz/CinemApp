@@ -1,9 +1,10 @@
-@extends('layouts.base')
+@extends('layouts.app')
 
 @section('content')
     <form class="form-signin" style="padding-bottom:25px;">
         <label for="inputdate" class="sr-only">Fecha</label>
-        <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date" style="width: 200px; display:inline-block; margin-right: 5px;" >
+        <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date"
+               style="width: 200px; display:inline-block; margin-right: 5px;">
         <button type="submit" id="buttonBuscar">Buscar</button>
     </form>
     @if($errors->any())
@@ -50,5 +51,4 @@
             </div>
         @endforeach
     @endisset
-
 @endsection
