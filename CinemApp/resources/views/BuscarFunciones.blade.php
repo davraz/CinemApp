@@ -1,6 +1,11 @@
 @extends('layouts.base')
 
 @section('content')
+    <form class="form-signin" style="padding-bottom:25px;">
+        <label for="inputdate" class="sr-only">Fecha</label>
+        <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date" style="width: 200px; display:inline-block; margin-right: 5px;" >
+        <button type="submit" id="buttonBuscar">Buscar</button>
+    </form>
     @if($errors->any())
         <div class="alert alert-danger">
             @foreach($errors->all() as $error)
@@ -8,11 +13,11 @@
             @endforeach
         </div>
     @endif
-    <form class="form-signin" style="padding-bottom:25px;">
-        <label for="inputdate" class="sr-only">Fecha</label>
-        <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date" style="width: 200px; display:inline-block; margin-right: 5px;" >
-        <button type="submit" id="buttonBuscar">Buscar</button>
-    </form>
+    @isset($mensaje)
+        <div class="alert alert-primary" role="alert">
+            {{$mensaje}}
+        </div>
+    @endisset
     @isset($peliculas)
         @foreach($peliculas as $pelicula)
             <div class="card mb-3">

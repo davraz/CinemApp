@@ -15,6 +15,7 @@ class FuncionesController extends Controller
         ]);
 
         $peliculas = null;
+        $mensaje = null;
 
         if (array_key_exists('date', $validData)) {
             $date = $validData['date'];
@@ -23,10 +24,15 @@ class FuncionesController extends Controller
                 $query->where('hora_inicio', '>=', date($date));
                 $query->where('hora_inicio', '<=', date($date).' 23:59:59');
             })->get();
+
+            if($peliculas->isEmpty()){
+                $mensaje = "No hay funciones programadas para la fecha seleccionada";
+            }
         }
 
         return view('BuscarFunciones', [
-            'peliculas' => $peliculas
+            'peliculas' => $peliculas,
+            'mensaje' => $mensaje
         ]);
     }
 }
