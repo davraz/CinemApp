@@ -23,8 +23,8 @@ class CreateFuncionesTable extends Migration
             $table->foreign('sala_id')
                 ->references('id')->on('salas')
                 ->onDelete('cascade');
-            $table->time('hora_inicio');
-            $table->time('hora_fin');
+            $table->dateTime('hora_inicio');
+            $table->dateTime('hora_fin');
             $table->timestamps();
         });
     }
