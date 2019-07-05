@@ -106,6 +106,15 @@ class ReservasController extends Controller
         return redirect('/reservas')->with('message', 'Reserva eliminada correctamente');
     }
 
+    public function pagarReserva($id)
+    {
+        $reserva = Reserva::findOrFail($id);
+
+        return view('pagarReserva',[
+            'reserva' => $reserva
+        ]);
+    }
+
     public function reservaPaga($reserva)
     {
         return $reserva->estado == 'Pagada';

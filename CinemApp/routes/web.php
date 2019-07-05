@@ -17,3 +17,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/funciones', 'FuncionesController@find');
 Route::resource('/reservas', 'ReservasController');
+Route::get('/reservas/{id}/pagar', 'ReservasController@pagarReserva');

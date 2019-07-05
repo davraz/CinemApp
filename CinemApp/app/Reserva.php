@@ -20,4 +20,9 @@ class Reserva extends Model
     {
         return $this->belongsTo(Silla::class);
     }
+
+    public function pagada()
+    {
+        return $this->estado == 'Pagada';
+    }
 }

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="text-center">Gestionar Reservas</h1>
+        <h1 class="text-center">Pagar Reserva</h1>
 
         @if($errors->any())
             <div class="alert alert-danger">
@@ -38,8 +38,8 @@
                             <p class="card-text">
                                 <strong>Total: </strong>{{$reserva->silla_count * $reserva->silla->precio()}}</p>
                             <p class="card-text"><strong>Estado: </strong>{{$reserva->estado}}</p>
-                            <a href="/reservas/{{$reserva->id}}/pagar" class="btn btn-success @if($reserva->pagada()) disabled @endif" >Pagar</a>
-                            <button type="submit" href="#"  class="btn btn-danger" @if($reserva->pagada()) disabled @endif>Eliminar</button>
+                            <a href="#" class="btn btn-success">Pagar</a>
+                            <button type="submit" href="#" class="btn btn-danger">Eliminar</button>
                             <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{$reserva->id}}"
                                role="button"
                                aria-expanded="false" aria-controls="collapseExample">
