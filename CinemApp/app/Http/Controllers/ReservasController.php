@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Reserva;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ReservasController extends Controller
 {
@@ -11,20 +13,30 @@ class ReservasController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('gestionarReservas');
+        $usuario = $request->user();
+
+        $reservas = Reserva::where('usuario_id', $usuario->id)->withCount('silla')->get();
+
+       // dd($reservas);
+
+        return view('gestionarReservas', [
+            'reservas' => $reservas
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -35,7 +47,7 @@ class ReservasController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -46,7 +58,7 @@ class ReservasController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -57,7 +69,7 @@ class ReservasController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -69,7 +81,7 @@ class ReservasController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -80,7 +92,7 @@ class ReservasController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

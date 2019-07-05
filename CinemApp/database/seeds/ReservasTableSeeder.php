@@ -2,6 +2,7 @@
 
 use App\Funcion;
 use App\Reserva;
+use App\Silla;
 use App\Usuario;
 use Illuminate\Database\Seeder;
 
@@ -24,7 +25,7 @@ class ReservasTableSeeder extends Seeder
                 $silla = $this->getRandomSilla($funcion);
 
                 Reserva::insert([
-                    'estado' => 'pendiente',
+                    'estado' => 'Pendiente',
                     'funcion_id' => $funcion->id,
                     'usuario_id' => $usuario->id,
                     'silla_id' => $silla->id
@@ -42,6 +43,6 @@ class ReservasTableSeeder extends Seeder
     }
 
     public function getRandomSilla($funcion){
-        return $funcion->sala->sillas->first();
+        return Silla::where('sala_id',$funcion->sala_id)->inRandomOrder()->first();
     }
 }
