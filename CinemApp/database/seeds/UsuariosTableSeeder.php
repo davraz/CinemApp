@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UsuariosTableSeeder extends Seeder
@@ -17,16 +18,18 @@ class UsuariosTableSeeder extends Seeder
             'cedula' => 1017213810,
             'nombre' => 'Jose',
             'apellido' => 'Restrepo',
-            'email' => Str::random(10) . '@gmail.com',
-            'rol' => 'Cliente'
+            'email' => 'david-restre@hotmail.com',
+            'rol' => 'Cliente',
+            'password' => Hash::make('1234')
         ]);
 
         DB::table('usuarios')->insert([
             'cedula' => 11111111,
             'nombre' => 'David',
             'apellido' => 'Alcaraz',
-            'email' => Str::random(10) . '@gmail.com',
-            'rol' => 'Cliente'
+            'email' => 'david@gmail.com',
+            'rol' => 'Cliente',
+            'password' => Hash::make('1234')
         ]);
     }
 }
