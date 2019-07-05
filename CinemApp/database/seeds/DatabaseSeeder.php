@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             PeliculasTableSeeder::class,
             SalasTableSeeder::class,
             SillasTableSeeder::class,
-            FuncionesTableSeeder::class
+            FuncionesTableSeeder::class,
+            ReservasTableSeeder::class
         ]);
     }
 }

@@ -15,4 +15,10 @@ class Reserva extends Model
     {
         return $this->belongsTo(Usuario::class);
     }
+
+    public function silla()
+    {
+        return $this->belongsTo(Silla::class);
+    }
+
 }

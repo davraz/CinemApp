@@ -15,7 +15,7 @@ class CreateReservasTable extends Migration
     {
         Schema::create('reservas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('estado');
+            $table->string('estado');
             $table->unsignedBigInteger('funcion_id');
             $table->foreign('funcion_id')
                 ->references('id')->on('funciones')
@@ -24,9 +24,9 @@ class CreateReservasTable extends Migration
             $table->foreign('silla_id')
                 ->references('id')->on('sillas')
                 ->onDelete('cascade');
-            $table->integer('usuario_id');
+            $table->UnsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')
-                ->references('cedula')->on('usuarios')
+                ->references('id')->on('usuarios')
                 ->onDelete('cascade');
             $table->timestamps();
         });
