@@ -123,6 +123,10 @@ class ReservasController extends Controller
 
     public function pagarReserva(Request $request, $id)
     {
+
+        /*print_r( $request );
+
+        exit(0);*/
         $medioDePagoID = $request['medioDePago'];
 
         $reserva = Reserva::findOrFail($id);
