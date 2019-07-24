@@ -19,3 +19,6 @@ Route::get('/funciones', 'FuncionesController@find');
 Route::resource('/reservas', 'ReservasController');
 Route::get('/reservas/{id}/pagar', 'ReservasController@confirmarPagarReserva');
 Route::post('/reservas/{id}/pagar', 'ReservasController@pagarReserva');
+
+Route::get('/reservarFunciones', 'ReservaController@index');
+Route::post('/reservarFunciones/reserva', 'ReservaController@reserva');
