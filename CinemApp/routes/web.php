@@ -11,14 +11,17 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/funciones', 'FuncionesController@find');
-Route::resource('/reservas', 'ReservasController');
+Route::get('/funciones', 'FuncionesController@find')->name('funciones');
+
+
 Route::get('/reservas/{id}/pagar', 'ReservasController@confirmarPagarReserva');
 Route::post('/reservas/{id}/pagar', 'ReservasController@pagarReserva');
 
-Route::get('/reservarFunciones', 'ReservaController@index');
-Route::post('/reservarFunciones/reserva', 'ReservaController@reserva');
+Route::resource('/reservas', 'ReservasController')->names('reservas');
+Route::resource('/peliculas', 'PeliculasController')->names('peliculas');
