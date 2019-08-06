@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Funcion;
 use App\Pelicula;
+use App\Silla;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -25,8 +27,7 @@ class FuncionesController extends Controller
         if (array_key_exists('date', $validData)) {
             $date = $validData['date'];
 
-            if($this->fechaMenorActual($date))
-            {
+            if($this->fechaMenorActual($date)) {
                 $mensaje = "Las funciones de la fecha seleccionada ya terminaron";
             }
             else {
@@ -50,14 +51,23 @@ class FuncionesController extends Controller
         ]);
     }
 
-    public function fechaMenorActual($date)
+    public function reservar(Request $request, $id)
     {
+        $funcion = Funcion::findOrFail($id);
+
+        $usuario = $request->user();
+        $sillas = Silla::where('sala_id',1)->get();
+
+        return view('reservarFuncion', ['sillas' => $sillas, 'usuario'=> $usuario]);
+    }
+
+    public function fechaMenorActual($date) {
         $hoy = date("Y-m-d");
 
         return $date < $hoy;
     }
 
-    public function hayFunciones($peliculas){
+    public function hayFunciones($peliculas) {
         return $peliculas->isEmpty();
     }
 }

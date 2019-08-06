@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Reserva extends Model
@@ -21,8 +22,31 @@ class Reserva extends Model
         return $this->belongsTo(Silla::class);
     }
 
-    public function pagada()
+    public function getPagadaAttribute()
     {
         return $this->estado == 'Pagada';
+    }
+
+    public function getTotalAttribute()
+    {
+        return $this->silla_count * $this->silla->precio;
+    }
+
+    public function getFechaConFormatoAttribute()
+    {
+        return Carbon::parse($this->funcion->hora_inicio)
+            ->format('Y-m-d');
+    }
+
+    public function getHoraConFormatoAttribute()
+    {
+        return Carbon::parse($this->funcion->hora_inicio)
+            ->format('h:i A');
+    }
+
+    public function pagar()
+    {
+        $this->estado = 'Pagada';
+        $this->save();
     }
 }

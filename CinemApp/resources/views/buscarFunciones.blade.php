@@ -42,7 +42,9 @@
                                     <ul>
                                         @foreach($pelicula->funciones as $funcion)
                                             <li>
-                                                <a href="/reservarFunciones">{{ "Sala: " . $funcion->sala->numero . " - " . Carbon\Carbon::parse($funcion['hora_inicio'])->format('h:i A') }}</a>
+                                                <a href="{{route('reservarFuncion', $funcion->id)}}">
+                                                    {{ $funcion->salaHora }}
+                                                </a>
                                             </li>
                                         @endforeach
                                     </ul>

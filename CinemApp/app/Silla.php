@@ -16,7 +16,7 @@ class Silla extends Model
         return $this->hasMany(Reserva::class);
     }
 
-    public function precio()
+    public function getPrecioAttribute()
     {
         return $this->tipo == 'General' ? 8000 : 12000;
     }
