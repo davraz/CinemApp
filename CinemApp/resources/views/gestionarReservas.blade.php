@@ -16,13 +16,12 @@
                 {{session('message')}}
             </div>
         @endif
+
         @isset($reservas)
             @foreach($reservas as $reserva)
-
                 <form action="/reservas/{{$reserva->id}}" method="post">
                     @csrf
                     @method('delete')
-
                     <div class="card">
                         <div class="card-header">
                             <h4>
@@ -31,15 +30,15 @@
                         </div>
                         <div class="card-body">
                             <p class="card-text">
-                                <strong>Fecha: </strong>{{Carbon\Carbon::parse($reserva->funcion->hora_inicio)->format('Y-m-d')}}
-                                <strong>Hora: </strong> {{Carbon\Carbon::parse($reserva->funcion->hora_inicio)->format('h:i A')}}
+                                <strong>Fecha: </strong>{{ $reserva->fechaConFormato }}
+                                <strong>Hora: </strong> {{ $reserva->horaConFormato }}
                             </p>
-                            <p class="card-text"><strong>Sala: </strong>{{$reserva->funcion->sala->numero}}</p>
+                            <p class="card-text"><strong>Sala: </strong>{{ $reserva->funcion->sala->numero }}</p>
                             <p class="card-text">
-                                <strong>Total: </strong>{{$reserva->silla_count * $reserva->silla->precio()}}</p>
-                            <p class="card-text"><strong>Estado: </strong>{{$reserva->estado}}</p>
-                            <a href="/reservas/{{$reserva->id}}/pagar" class="btn btn-success @if($reserva->pagada()) disabled @endif" >Pagar</a>
-                            <button type="submit" href="#"  class="btn btn-danger" @if($reserva->pagada()) disabled @endif>Eliminar</button>
+                                <strong>Total: </strong>{{ $reserva->total }}</p>
+                            <p class="card-text"><strong>Estado: </strong>{{ $reserva->estado }}</p>
+                            <a href="{{route('pagarReserva', $reserva->id)}}" class="btn btn-success @if($reserva->pagada) disabled @endif" >Pagar</a>
+                            <button type="submit" class="btn btn-danger" @if($reserva->pagada) disabled @endif>Eliminar</button>
                             <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{$reserva->id}}"
                                role="button"
                                aria-expanded="false" aria-controls="collapseExample">
@@ -57,16 +56,15 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <th scope="row">{{$reserva->silla->letra . $reserva->silla->numero}}</th>
-                                    <td>{{$reserva->silla->tipo}}</td>
-                                    <td>{{$reserva->silla->precio()}}</td>
+                                    <th scope="row">{{ $reserva->silla->letra . $reserva->silla->numero }}</th>
+                                    <td>{{ $reserva->silla->tipo }}</td>
+                                    <td>{{ $reserva->silla->precio }}</td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </form>
-
                 <br/>
             @endforeach
         @endisset

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Funcion extends Model
@@ -21,5 +22,11 @@ class Funcion extends Model
     public function reservas()
     {
         return $this->hasMany(Reserva::class);
+    }
+
+    public function getSalaHoraAttribute()
+    {
+        return "Sala: " . $this->sala->numero . " - "
+            . Carbon::parse($this['hora_inicio'])->format('h:i A');
     }
 }

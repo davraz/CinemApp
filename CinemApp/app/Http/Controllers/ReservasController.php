@@ -97,14 +97,15 @@ class ReservasController extends Controller
     {
         $reserva = Reserva::findOrFail($id);
 
-        if ($this->reservaPaga($reserva))
-        {
-            return redirect('/reservas')->withErrors(['La reserva no se puede eliminar porque ya se encuentra paga']);
+        if ($reserva->pagada) {
+            return redirect(route('reservas.index'))
+                ->withErrors(['La reserva no se puede eliminar porque ya se encuentra paga']);
         }
 
         $reserva->delete();
 
-        return redirect('/reservas')->with('message', 'Reserva eliminada correctamente');
+        return redirect(route('reservas.index'))
+            ->with('message', 'Reserva eliminada correctamente');
     }
 
     public function confirmarPagarReserva(Request $request, $id)
@@ -123,41 +124,25 @@ class ReservasController extends Controller
 
     public function pagarReserva(Request $request, $id)
     {
-
-        /*print_r( $request );
-
-        exit(0);*/
         $medioDePagoID = $request['medioDePago'];
 
         $reserva = Reserva::findOrFail($id);
 
-        $usuario = $request->user();
-
         $medioDePago = MedioDePago::find($medioDePagoID);
 
-        if ($this->saldoSuficiente($reserva, $medioDePago))
-        {
-            $medioDePago->saldo = $medioDePago->saldo - $reserva->silla->precio();
-            $medioDePago->save();
-
-            $reserva->estado = 'Pagada';
-            $reserva->save();
-
-            return redirect('reservas/' . $id . '/pagar')->with('message', 'Pago realizado con éxito');
-        }
-        else {
-            return redirect('reservas/' . $id . '/pagar')->withErrors(['El medio de pago seleccionado no cuenta con saldo suficiente para realizar el pago']);
+        if ($reserva->pagada) {
+            return redirect(route('pagarReserva', $id))
+                ->withErrors(['La reserva ya se encuentra paga']);
         }
 
-    }
+        if (!$medioDePago->tieneSaldoSuficiente($reserva->silla->precio)) {
+            return redirect(route('pagarReserva', $id))
+                ->withErrors(['El medio de pago seleccionado no cuenta con saldo suficiente para realizar el pago']);
+        }
 
-    public function reservaPaga($reserva)
-    {
-        return $reserva->estado == 'Pagada';
-    }
+        $medioDePago->pagar($reserva);
 
-    public function saldoSuficiente($reserva, $medioDePago)
-    {
-        return $reserva->silla->precio() < $medioDePago->saldo;
+        return redirect(route('pagarReserva', $id))
+            ->with('message', 'Pago realizado con éxito');
     }
 }

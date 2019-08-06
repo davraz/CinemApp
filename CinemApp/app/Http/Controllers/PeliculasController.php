@@ -2,22 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Silla;
+use App\Pelicula;
 use Illuminate\Http\Request;
 
-class ReservaController extends Controller
+class PeliculasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $usuario = $request->user();
-        $sillas = Silla::where('sala_id',1)->get();
+        $peliculas = Pelicula::all();
 
-        return view('reservarFunciones', ['sillas' => $sillas, 'usuario'=> $usuario]);
+        return view('peliculas', ['peliculas' => $peliculas]);
     }
 
     /**
@@ -27,7 +31,7 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        //
+        return view('crearPelicula');
     }
 
     /**
@@ -84,10 +88,5 @@ class ReservaController extends Controller
     public function destroy($id)
     {
         //
-    }
-    public function reserva()
-    {
-       print_r($_POST);
-
     }
 }

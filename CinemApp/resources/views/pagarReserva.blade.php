@@ -17,7 +17,7 @@
             </div>
         @endif
         @if(isset($reserva) && isset($mediosDePago))
-            <form method="post" action="/reservas/{{$reserva->id}}/pagar">
+            <form method="post" action="{{route('pagarReserva', $reserva->id)}}">
                 @csrf
                 <h4>Seleccione el medio de pago</h4>
                 <select name="medioDePago" class="form-control" name="product_id">
