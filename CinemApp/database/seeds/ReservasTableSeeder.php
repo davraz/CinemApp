@@ -27,17 +27,22 @@ class ReservasTableSeeder extends Seeder
         {
             foreach ($funciones as $funcion)
             {
-                $silla = $this->getRandomSilla($funcion);
+                $sillasID = $this->getRandomSillas($funcion);
 
                 $key = array_rand($estados);
                 $estado = $estados[$key];
 
-                Reserva::insert([
-                    'estado' => $estado,
-                    'funcion_id' => $funcion->id,
-                    'usuario_id' => $usuario->id,
-                    'silla_id' => $silla->id
-                ]);
+                $reserva = new Reserva;
+
+                $reserva->estado = $estado;
+                $reserva->funcion_id = $funcion->id;
+                $reserva->usuario_id = $usuario->id;
+
+                $reserva->save();
+
+                $reserva->sillas()->attach($sillasID);
+
+
             }
         }
     }
@@ -50,7 +55,10 @@ class ReservasTableSeeder extends Seeder
         return Funcion::all();
     }
 
-    public function getRandomSilla($funcion){
-        return Silla::where('sala_id',$funcion->sala_id)->inRandomOrder()->first();
+    public function getRandomSillas($funcion){
+        return Silla::where('sala_id', $funcion->sala_id)
+            ->inRandomOrder()->take(3)
+            ->pluck('id')
+            ->toArray();;
     }
 }

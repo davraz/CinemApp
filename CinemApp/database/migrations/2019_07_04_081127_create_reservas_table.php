@@ -17,18 +17,14 @@ class CreateReservasTable extends Migration
             $table->bigIncrements('id');
             $table->string('estado');
             $table->unsignedBigInteger('funcion_id');
+            $table->UnsignedBigInteger('usuario_id');
+            $table->timestamps();
             $table->foreign('funcion_id')
                 ->references('id')->on('funciones')
                 ->onDelete('cascade');
-            $table->UnsignedBigInteger('silla_id');
-            $table->foreign('silla_id')
-                ->references('id')->on('sillas')
-                ->onDelete('cascade');
-            $table->UnsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')
                 ->references('id')->on('usuarios')
                 ->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

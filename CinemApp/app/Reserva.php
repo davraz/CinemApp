@@ -17,9 +17,9 @@ class Reserva extends Model
         return $this->belongsTo(Usuario::class);
     }
 
-    public function silla()
+    public function sillas()
     {
-        return $this->belongsTo(Silla::class);
+        return $this->belongsToMany(Silla::class);
     }
 
     public function getPagadaAttribute()

@@ -11,9 +11,9 @@ class Silla extends Model
         return $this->belongsTo(Sala::class);
     }
 
-    public function sillas()
+    public function reservas()
     {
-        return $this->hasMany(Reserva::class);
+        return $this->belongsToMany(Reserva::class);
     }
 
     public function getPrecioAttribute()
