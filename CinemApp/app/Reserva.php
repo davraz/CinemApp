@@ -27,9 +27,19 @@ class Reserva extends Model
         return $this->estado == 'Pagada';
     }
 
+    public function getSillasCountAttribute()
+    {
+        return $this->sillas->count();
+    }
+
     public function getTotalAttribute()
     {
-        return $this->silla_count * $this->silla->precio;
+        $total = 0;
+        foreach ($this->sillas as $silla)
+        {
+            $total += $silla->precio;
+        }
+        return $total;
     }
 
     public function getFechaConFormatoAttribute()

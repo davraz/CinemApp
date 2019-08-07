@@ -30,15 +30,30 @@
                         </div>
                         <div class="card-body">
                             <p class="card-text">
-                                <strong>Fecha: </strong>{{ $reserva->fechaConFormato }}
-                                <strong>Hora: </strong> {{ $reserva->horaConFormato }}
+                                <strong>Fecha: </strong>
+                                {{ $reserva->fechaConFormato }}
+                                <strong>Hora: </strong>
+                                {{ $reserva->horaConFormato }}
                             </p>
-                            <p class="card-text"><strong>Sala: </strong>{{ $reserva->funcion->sala->numero }}</p>
                             <p class="card-text">
-                                <strong>Total: </strong>{{ $reserva->total }}</p>
-                            <p class="card-text"><strong>Estado: </strong>{{ $reserva->estado }}</p>
-                            <a href="{{route('pagarReserva', $reserva->id)}}" class="btn btn-success @if($reserva->pagada) disabled @endif" >Pagar</a>
-                            <button type="submit" class="btn btn-danger" @if($reserva->pagada) disabled @endif>Eliminar</button>
+                                <strong>Sala: </strong>
+                                {{ $reserva->funcion->sala->numero }}
+                                <strong>Sillas: </strong>
+                                {{ $reserva->sillasCount }}
+                                <strong>Total: </strong>
+                                {{ $reserva->total }}
+                            </p>
+                            <p class="card-text">
+                                <strong>Estado: </strong>
+                                {{ $reserva->estado }}
+                            </p>
+                            <a href="{{route('pagarReserva', $reserva->id)}}"
+                               class="btn btn-success @if($reserva->pagada) disabled @endif">
+                                Pagar
+                            </a>
+                            <button type="submit" class="btn btn-danger" @if($reserva->pagada) disabled @endif>
+                                Eliminar
+                            </button>
                             <a class="btn btn-primary" data-toggle="collapse" href="#collapse{{$reserva->id}}"
                                role="button"
                                aria-expanded="false" aria-controls="collapseExample">
@@ -55,11 +70,20 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">{{ $reserva->silla->letra . $reserva->silla->numero }}</th>
-                                    <td>{{ $reserva->silla->tipo }}</td>
-                                    <td>{{ $reserva->silla->precio }}</td>
-                                </tr>
+                                @foreach($reserva->sillas as $silla)
+                                    <tr>
+                                        <th scope="row">
+                                            {{ $silla->letra . $silla->numero }}
+                                        </th>
+                                        <td>
+                                            {{ $silla->tipo }}
+                                        </td>
+                                        <td>
+                                            {{ $silla->precio }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+
                                 </tbody>
                             </table>
                         </div>

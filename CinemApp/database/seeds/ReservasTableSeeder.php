@@ -41,8 +41,6 @@ class ReservasTableSeeder extends Seeder
                 $reserva->save();
 
                 $reserva->sillas()->attach($sillasID);
-
-
             }
         }
     }

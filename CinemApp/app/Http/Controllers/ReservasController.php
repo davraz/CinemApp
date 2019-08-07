@@ -25,7 +25,7 @@ class ReservasController extends Controller
     {
         $usuario = $request->user();
 
-        $reservas = Reserva::where('usuario_id', $usuario->id)->withCount('silla')->get();
+        $reservas = Reserva::where('usuario_id', $usuario->id)->get();
 
         return view('gestionarReservas', [
             'reservas' => $reservas
