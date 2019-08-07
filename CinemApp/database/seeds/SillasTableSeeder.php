@@ -15,70 +15,24 @@ class SillasTableSeeder extends Seeder
     {
         $salas = Sala::all();
 
+        $letras = range('A','Z');
+
         foreach ($salas as $sala)
         {
-            Silla::insert([
-                'letra' => 'A',
-                'numero' => 1,
-                'tipo' => 'General',
-                'sala_id' => $sala->id
-            ]);
+            for ($i = 1; $i <= $sala->filas; $i++)
+            {
+                for ($j = 1; $j <= $sala->columnas; $j++)
+                {
+                    $tipo = $i <= $sala->filas - 2 ? 'General' : 'Preferencial';
 
-            Silla::insert([
-                'letra' => 'A',
-                'numero' => 2,
-                'tipo' => 'General',
-                'sala_id' => $sala->id
-            ]);
-
-            Silla::insert([
-                'letra' => 'A',
-                'numero' => 3,
-                'tipo' => 'General',
-                'sala_id' => $sala->id
-            ]);
-
-            Silla::insert([
-                'letra' => 'B',
-                'numero' => 1,
-                'tipo' => 'General',
-                'sala_id' => $sala->id
-            ]);
-
-            Silla::insert([
-                'letra' => 'B',
-                'numero' => 2,
-                'tipo' => 'General',
-                'sala_id' => $sala->id
-            ]);
-
-            Silla::insert([
-                'letra' => 'B',
-                'numero' => 3,
-                'tipo' => 'General',
-                'sala_id' => $sala->id
-            ]);
-
-            Silla::insert([
-                'letra' => 'C',
-                'numero' => 1,
-                'tipo' => 'Preferencial',
-                'sala_id' => $sala->id
-            ]);
-
-            Silla::insert([
-                'letra' => 'C',
-                'numero' => 2,
-                'tipo' => 'Preferencial',
-                'sala_id' => $sala->id
-            ]);
-
-            Silla::insert([
-                'letra' => 'C',
-                'numero' => 3,
-                'tipo' => 'Preferencial',
-                'sala_id' => $sala->id
-            ]);
+                    Silla::insert([
+                        'letra' => $letras[$i - 1],
+                        'numero' => $j,
+                        'tipo' => $tipo,
+                        'sala_id' => $sala->id
+                    ]);
+                }
+            }
         }
     }
 }

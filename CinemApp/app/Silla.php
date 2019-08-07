@@ -18,6 +18,11 @@ class Silla extends Model
 
     public function getPrecioAttribute()
     {
-        return $this->tipo == 'General' ? 8000 : 12000;
+        return $this->esGeneral ? 8000 : 12000;
+    }
+
+    public function getEsGeneralAttribute()
+    {
+        return $this->tipo == 'General';
     }
 }

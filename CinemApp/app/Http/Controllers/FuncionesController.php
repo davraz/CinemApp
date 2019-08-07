@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Funcion;
 use App\Pelicula;
+use App\Reserva;
 use App\Silla;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -27,19 +28,18 @@ class FuncionesController extends Controller
         if (array_key_exists('date', $validData)) {
             $date = $validData['date'];
 
-            if($this->fechaMenorActual($date)) {
+            if ($this->fechaMenorActual($date)) {
                 $mensaje = "Las funciones de la fecha seleccionada ya terminaron";
-            }
-            else {
+            } else {
                 $peliculas = Pelicula::whereHas('funciones', function ($query) use ($date) {
                     $query->where('hora_inicio', '>=', date($date))
-                        ->where('hora_inicio', '<=', date($date).' 23:59:59');
-                })->with(['funciones' => function($query) use($date) {
+                        ->where('hora_inicio', '<=', date($date) . ' 23:59:59');
+                })->with(['funciones' => function ($query) use ($date) {
                     $query->where('hora_inicio', '>=', date($date))
-                        ->where('hora_inicio', '<=', date($date).' 23:59:59');
+                        ->where('hora_inicio', '<=', date($date) . ' 23:59:59');
                 }])->get();
 
-                if($this->hayFunciones($peliculas)){
+                if ($this->hayFunciones($peliculas)) {
                     $mensaje = "No hay funciones programadas para la fecha seleccionada";
                 }
             }
@@ -56,18 +56,26 @@ class FuncionesController extends Controller
         $funcion = Funcion::findOrFail($id);
 
         $usuario = $request->user();
-        $sillas = Silla::where('sala_id',1)->get();
 
-        return view('reservarFuncion', ['sillas' => $sillas, 'usuario'=> $usuario]);
+        $reserva = Reserva::where('usuario_id', $usuario->id)
+            ->where('funcion_id', $funcion->id)
+            ->first();
+
+        return view('reservarFuncion',
+            ['funcion' => $funcion,
+                'reserva' => $reserva]
+        );
     }
 
-    public function fechaMenorActual($date) {
+    public function fechaMenorActual($date)
+    {
         $hoy = date("Y-m-d");
 
         return $date < $hoy;
     }
 
-    public function hayFunciones($peliculas) {
+    public function hayFunciones($peliculas)
+    {
         return $peliculas->isEmpty();
     }
 }

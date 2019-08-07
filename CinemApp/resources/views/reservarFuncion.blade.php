@@ -2,43 +2,40 @@
 
 @section('content')
     <div class="container">
-        Funciones
-
-        @isset($usuario)
-            <div id='usuario' data-codigo='{{$usuario->id}}'>{{$usuario->nombre}}</div>
-        @endisset
-
+        Película
         <div>
-            <div id='reserva' class='columna'>
-                <h2>Sillas</h2>
-                <div id='content'></div>
-                <div>
-                    <input type='button' value='Save' onclick='save_aforo()'>
-                </div>
-            </div>
-            <div class='columna'>
-                <table id='sala' class='sala'>
-                    <tr>
-                        @isset($sillas)
-                            @php
-                                $chair_label = '';
-                            @endphp
-
-                            @foreach($sillas as $silla)
+            @isset($funcion)
+                <table>
+                    <tbody>
+                    @for ($i = 0; $i < $funcion->sala->filas; $i++)
+                        <tr>
+                            @for ($j = 0; $j < $funcion->sala->columnas; $j++)
                                 @php
-                                    if ( $chair_label != $silla->letra ) {
-                                        // avoid first time
-                                        if ( $chair_label != "" ) { echo "</tr>"; }
-                                        echo "<tr><td>".$silla->letra."</td>";
-                                        $chair_label = $silla->letra;
-                                    }
-                                    echo "<td data-chair='".$silla->id."' class='chair'>".$silla->letra.$silla->numero."</td>";
+                                    $silla = $funcion->sala->sillas[$i*$funcion->sala->columnas+$j];
                                 @endphp
-                            @endforeach
-                        @endisset
-                    </tr>
+                                <td>
+                                    @if($reserva->sillas->where('id', $silla->id)->first() != null)
+                                        <button type="button"
+                                                class="btn btn-success">
+                                            {{$silla->letra}}
+                                            {{$silla->numero}}
+                                        </button>
+                                    @else
+                                        <button type="button"
+                                                class="btn btn-outline-{{ $silla->esGeneral ? 'dark' : 'primary'}}">
+                                            {{$silla->letra}}
+                                            {{$silla->numero}}
+                                        </button>
+                                    @endif
+
+
+                                </td>
+                            @endfor
+                        </tr>
+                    @endfor
+                    </tbody>
                 </table>
-            </div>
+            @endisset
         </div>
     </div>
 

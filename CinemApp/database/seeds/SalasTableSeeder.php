@@ -13,15 +13,21 @@ class SalasTableSeeder extends Seeder
     public function run()
     {
         Sala::insert([
-           'numero' => 1
+           'numero' => 1,
+            'filas' => 7,
+            'columnas' => 5
         ]);
 
         Sala::insert([
-            'numero' => 2
+            'numero' => 2,
+            'filas' => 6,
+            'columnas' => 6
         ]);
 
         Sala::insert([
-            'numero' => 3
+            'numero' => 3,
+            'filas' => 8,
+            'columnas' => 4
         ]);
     }
 }
