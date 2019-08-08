@@ -42,19 +42,7 @@ class Reserva extends Model
         return $total;
     }
 
-    public function getFechaConFormatoAttribute()
-    {
-        return Carbon::parse($this->funcion->hora_inicio)
-            ->format('Y-m-d');
-    }
-
-    public function getHoraConFormatoAttribute()
-    {
-        return Carbon::parse($this->funcion->hora_inicio)
-            ->format('h:i A');
-    }
-
-    public function pagar()
+      public function pagar()
     {
         $this->estado = 'Pagada';
         $this->save();

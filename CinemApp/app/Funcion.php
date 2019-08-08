@@ -24,6 +24,18 @@ class Funcion extends Model
         return $this->hasMany(Reserva::class);
     }
 
+    public function getFechaConFormatoAttribute()
+    {
+        return Carbon::parse($this->hora_inicio)
+        ->format('Y-m-d');
+    }
+
+    public function getHoraConFormatoAttribute()
+    {
+        return Carbon::parse($this->hora_inicio)
+            ->format('h:i A');
+    }
+
     public function getSalaHoraAttribute()
     {
         return "Sala: " . $this->sala->numero . " - "

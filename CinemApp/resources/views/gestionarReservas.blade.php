@@ -31,9 +31,9 @@
                         <div class="card-body">
                             <p class="card-text">
                                 <strong>Fecha: </strong>
-                                {{ $reserva->fechaConFormato }}
+                                {{ $reserva->funcion->fechaConFormato }}
                                 <strong>Hora: </strong>
-                                {{ $reserva->horaConFormato }}
+                                {{ $reserva->funcion->horaConFormato }}
                             </p>
                             <p class="card-text">
                                 <strong>Sala: </strong>

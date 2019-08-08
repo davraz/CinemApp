@@ -61,7 +61,7 @@ class FuncionesController extends Controller
             ->where('funcion_id', $funcion->id)
             ->first();
 
-        return view('reservarFuncion',
+        return view('realizarReserva',
             ['funcion' => $funcion,
                 'reserva' => $reserva]
         );
