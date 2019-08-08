@@ -23,9 +23,9 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($reserva->sillas as $silla)
+                            @foreach($misSillas as $silla)
                                 <tr>
-                                    <td scope="row">
+                                    <td>
                                         {{ $silla->letra . $silla->numero }}
                                     </td>
                                     <td>
@@ -53,23 +53,19 @@
                         @for ($i = 0; $i < $funcion->sala->filas; $i++)
                             <tr>
                                 @for ($j = 0; $j < $funcion->sala->columnas; $j++)
-                                    @php
-                                        $silla = $funcion->sala->sillas[$i*$funcion->sala->columnas+$j];
-                                    @endphp
+                                    @php ($silla = $sillas[$i*$funcion->sala->columnas+$j])
                                     <td>
-                                        @if($reserva->sillas->where('id', $silla->id)->first() != null)
-                                            <button type="button"
-                                                    class="btn btn-block btn-success btn-sm btn-circle">
-                                                {{$silla->letra}}
-                                                {{$silla->numero}}
-                                            </button>
-                                        @else
-                                            <button type="button"
-                                                    class="btn btn-block btn-sm {{ $silla->esGeneral ? 'btn-outline-dark' : 'btn-warning'}} btn-circle">
-                                                {{$silla->letra}}
-                                                {{$silla->numero}}
-                                            </button>
-                                        @endif
+                                        <button type="button" class="btn btn-block btn-sm btn-circle
+                                               {{$silla['estaReservada'] ?
+                                                    'btn-success' : (
+                                                 $silla['estaOcupada'] ?
+                                                    'btn-danger' : (
+                                                  $silla['esGeneral'] ?
+                                                    'btn-outline-dark' :
+                                                    'btn-warning')) }}">
+                                            {{$silla['letra']}}
+                                            {{$silla['numero']}}
+                                        </button>
                                     </td>
                                 @endfor
                             </tr>

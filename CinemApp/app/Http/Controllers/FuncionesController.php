@@ -57,13 +57,32 @@ class FuncionesController extends Controller
 
         $usuario = $request->user();
 
-        $reserva = Reserva::where('usuario_id', $usuario->id)
-            ->where('funcion_id', $funcion->id)
-            ->first();
+        $misSillas = Silla::whereHas('reservas', function ($query) use ($funcion, $usuario) {
+            $query->where('funcion_id', $funcion->id)
+                ->where('usuario_id', $usuario->id);
+        })->get();
+
+        $sillasOcupadas = Silla::whereHas('reservas', function ($query) use ($funcion, $usuario) {
+            $query->where('funcion_id', $funcion->id)
+                ->where('usuario_id', '!=', $usuario->id);
+        })->get();
+
+        $sillas = [];
+        foreach ($funcion->sala->sillas as $silla) {
+            array_push($sillas,
+                ['id' => $silla->id,
+                    'letra' => $silla->letra,
+                    'numero' => $silla->numero,
+                    'esGeneral' => $silla->esGeneral,
+                    'estaReservada' => $misSillas->contains($silla),
+                    'estaOcupada' => $sillasOcupadas->contains($silla)]
+            );
+        }
 
         return view('realizarReserva',
             ['funcion' => $funcion,
-                'reserva' => $reserva]
+                'sillas' => $sillas,
+                'misSillas' => $misSillas]
         );
     }
 
