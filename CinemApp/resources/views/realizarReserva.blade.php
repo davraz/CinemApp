@@ -41,7 +41,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 bg-secondary">
                     <div class="card mx-5 bg-dark text-white">
                         <div class="card-body text-center p-1">
                             <h3 class="font-weight-bold">PANTALLA</h3>
@@ -61,7 +61,7 @@
                                                  $silla['estaOcupada'] ?
                                                     'btn-danger' : (
                                                   $silla['esGeneral'] ?
-                                                    'btn-outline-dark' :
+                                                    'btn-light' :
                                                     'btn-warning')) }}">
                                             {{$silla['letra']}}
                                             {{$silla['numero']}}
@@ -74,7 +74,7 @@
                     </table>
                     <div class="row mt-5 mx-5 text-center">
                         <div class="col-3">
-                            <button type="button" class="disabled btn btn-outline-dark btn-sm btn-circle"></button>
+                            <button type="button" class="disabled btn btn-light btn-sm btn-circle"></button>
                             General
                         </div>
                         <div class="col-3">

@@ -45,7 +45,7 @@ class ReservasController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
@@ -78,7 +78,7 @@ class ReservasController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
      * @return Response
      */
@@ -135,7 +135,7 @@ class ReservasController extends Controller
                 ->withErrors(['La reserva ya se encuentra paga']);
         }
 
-        if (!$medioDePago->tieneSaldoSuficiente($reserva->silla->precio)) {
+        if (!$medioDePago->tieneSaldoSuficiente($reserva->total)) {
             return redirect(route('pagarReserva', $id))
                 ->withErrors(['El medio de pago seleccionado no cuenta con saldo suficiente para realizar el pago']);
         }
