@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
-    @section('content')
+@section('content')
     <div class="container">
         <h1 class="text-center">Buscar Funciones</h1>
-        <form class="form-signin" style="padding-bottom:25px;">
-            <label for="inputdate" class="sr-only">Fecha</label>
-            <input type="date" id="inputdate" name="date" class="form-control" placeholder="Date" value="{{ old('date') }}"
-                style="width: 200px; display:inline-block; margin-right: 5px;">
-            <button type="submit" id="buttonBuscar">Buscar</button>
+        <form class="form-inline my-3">
+            <label for="date" class="sr-only">Fecha</label>
+            <input type="date" id="date" name="date" class="form-control form-inline mr-3" placeholder="Fecha"
+                   value="{{ old('date') }}">
+            <button type="submit" class="btn btn-primary px-5">Buscar</button>
         </form>
         @if($errors->any())
             <div class="alert alert-danger">
@@ -25,8 +25,8 @@
             @foreach($peliculas as $pelicula)
                 <div class="card mb-3">
                     <div class="row no-gutters">
-                        <div class="col-md-4.5">
-                            <img src="{{$pelicula->portada}}" class="card-img" alt="..." style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; width:300px">
+                        <div class="col-md-4 px-3 py-1">
+                            <img src="{{$pelicula->portada}}" class="card-img img-fluid" alt="Película">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -42,7 +42,7 @@
                                     <ul>
                                         @foreach($pelicula->funciones as $funcion)
                                             <li>
-                                                <a href="{{route('reservarFuncion', $funcion->id)}}">
+                                                <a href="{{route('realizarReserva', $funcion->id)}}">
                                                     {{ $funcion->salaHora }}
                                                 </a>
                                             </li>
@@ -55,5 +55,5 @@
                 </div>
             @endforeach
         @endisset
-        </div>
-    @endsection
+    </div>
+@endsection

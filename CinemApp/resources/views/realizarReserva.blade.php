@@ -2,6 +2,18 @@
 
 @section('content')
     <div class="container">
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    {{$error}}
+                @endforeach
+            </div>
+        @endif
+        @isset($mensaje)
+            <div class="alert alert-primary" role="alert">
+                {{$mensaje}}
+            </div>
+        @endisset
         @isset($funcion)
             <div class="row">
                 <div class="col-md-4">
@@ -55,7 +67,10 @@
                                 @for ($j = 0; $j < $funcion->sala->columnas; $j++)
                                     @php ($silla = $sillas[$i*$funcion->sala->columnas+$j])
                                     <td>
-                                        <button type="button" class="btn btn-block btn-sm btn-circle
+                                        <form method="post"
+                                              action="{{route('reservarSilla', ['id' => $funcion->id, 'sillaID' => $silla['id']])}}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-block btn-sm btn-circle
                                                {{$silla['estaReservada'] ?
                                                     'btn-success' : (
                                                  $silla['estaOcupada'] ?
@@ -63,9 +78,11 @@
                                                   $silla['esGeneral'] ?
                                                     'btn-light' :
                                                     'btn-warning')) }}">
-                                            {{$silla['letra']}}
-                                            {{$silla['numero']}}
-                                        </button>
+                                                {{$silla['letra']}}
+                                                {{$silla['numero']}}
+                                            </button>
+                                        </form>
+
                                     </td>
                                 @endfor
                             </tr>

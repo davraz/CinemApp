@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Funcion;
 use App\Pelicula;
-use App\Reserva;
 use App\Silla;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -51,21 +50,13 @@ class FuncionesController extends Controller
         ]);
     }
 
-    public function reservar(Request $request, $id)
+    public function realizarReserva(Request $request, $id)
     {
         $funcion = Funcion::findOrFail($id);
-
         $usuario = $request->user();
 
-        $misSillas = Silla::whereHas('reservas', function ($query) use ($funcion, $usuario) {
-            $query->where('funcion_id', $funcion->id)
-                ->where('usuario_id', $usuario->id);
-        })->get();
-
-        $sillasOcupadas = Silla::whereHas('reservas', function ($query) use ($funcion, $usuario) {
-            $query->where('funcion_id', $funcion->id)
-                ->where('usuario_id', '!=', $usuario->id);
-        })->get();
+        $misSillas = $funcion->getSillasReservadas($usuario);
+        $sillasOcupadas = $funcion->getSillasOcupadas($usuario);
 
         $sillas = [];
         foreach ($funcion->sala->sillas as $silla) {
@@ -84,6 +75,34 @@ class FuncionesController extends Controller
                 'sillas' => $sillas,
                 'misSillas' => $misSillas]
         );
+    }
+
+    public function reservarSilla(Request $request, $id, $sillaID)
+    {
+        $funcion = Funcion::findOrFail($id);
+        $silla = Silla::findOrFail($sillaID);
+        $usuario = $request->user();
+
+        if ($funcion->getSillasOcupadas($usuario)->contains($silla)) {
+            return redirect(route('realizarReserva', $id))
+                ->withErrors(['La silla seleccionada no se encuentra disponible, por favor seleccione otra']);
+        }
+
+        $reserva = $funcion->getReservaPorUsuario($usuario);
+        if ($reserva->sillas->contains($silla)) {
+            $reserva->sillas()->detach($silla);
+
+            if ($reserva->sillas()->count() == 0) {
+                $reserva->delete();
+            }
+        } else if ($reserva->sillas()->count() >= 5) {
+            return redirect(route('realizarReserva', $id))
+                ->withErrors(['No se pueden seleccionar más de 5 sillas por función']);
+        } else {
+            $reserva->sillas()->attach($silla);
+        }
+
+        return redirect(route('realizarReserva', $id));
     }
 
     public function fechaMenorActual($date)
