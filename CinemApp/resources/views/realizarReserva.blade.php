@@ -35,7 +35,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($misSillas as $silla)
+                            @foreach($reserva->sillas as $silla)
                                 <tr>
                                     <td>
                                         {{ $silla->letra . $silla->numero }}
@@ -53,24 +53,25 @@
                         </table>
                     </div>
                 </div>
-                <div class="col-md-8 bg-secondary">
-                    <div class="card mx-5 bg-dark text-white">
-                        <div class="card-body text-center p-1">
-                            <h3 class="font-weight-bold">PANTALLA</h3>
+                <div class="col-md-8">
+                    <div class="bg-secondary p-3">
+                        <div class="card mx-5 bg-dark text-white">
+                            <div class="card-body text-center p-1">
+                                <h3 class="font-weight-bold">PANTALLA</h3>
+                            </div>
                         </div>
-                    </div>
-                    <br/>
-                    <table class="mx-auto">
-                        <tbody>
-                        @for ($i = 0; $i < $funcion->sala->filas; $i++)
-                            <tr>
-                                @for ($j = 0; $j < $funcion->sala->columnas; $j++)
-                                    @php ($silla = $sillas[$i*$funcion->sala->columnas+$j])
-                                    <td>
-                                        <form method="post"
-                                              action="{{route('reservarSilla', ['id' => $funcion->id, 'sillaID' => $silla['id']])}}">
-                                            @csrf
-                                            <button type="submit" class="btn btn-block btn-sm btn-circle
+                        <br/>
+                        <table class="mx-auto">
+                            <tbody>
+                            @for ($i = 0; $i < $funcion->sala->filas; $i++)
+                                <tr>
+                                    @for ($j = 0; $j < $funcion->sala->columnas; $j++)
+                                        @php ($silla = $sillas[$i*$funcion->sala->columnas+$j])
+                                        <td>
+                                            <form method="post"
+                                                  action="{{route('reservarSilla', ['id' => $funcion->id, 'sillaID' => $silla['id']])}}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-block btn-sm btn-circle
                                                {{$silla['estaReservada'] ?
                                                     'btn-success' : (
                                                  $silla['estaOcupada'] ?
@@ -78,34 +79,39 @@
                                                   $silla['esGeneral'] ?
                                                     'btn-light' :
                                                     'btn-warning')) }}">
-                                                {{$silla['letra']}}
-                                                {{$silla['numero']}}
-                                            </button>
-                                        </form>
+                                                    {{$silla['letra']}}
+                                                    {{$silla['numero']}}
+                                                </button>
+                                            </form>
 
-                                    </td>
-                                @endfor
-                            </tr>
-                        @endfor
-                        </tbody>
-                    </table>
-                    <div class="row mt-5 mx-5 text-center">
-                        <div class="col-3">
-                            <button type="button" class="disabled btn btn-light btn-sm btn-circle"></button>
-                            General
+                                        </td>
+                                    @endfor
+                                </tr>
+                            @endfor
+                            </tbody>
+                        </table>
+                        <div class="row mt-5 mx-5 text-center">
+                            <div class="col-3">
+                                <button type="button" class="disabled btn btn-light btn-sm btn-circle"></button>
+                                General
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="disabled btn btn-warning btn-sm btn-circle"></button>
+                                Preferencial
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="disabled btn btn-danger btn-sm btn-circle"></button>
+                                Ocupado
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="disabled btn btn-success btn-sm btn-circle"></button>
+                                Mis reservas
+                            </div>
                         </div>
-                        <div class="col-3">
-                            <button type="button" class="disabled btn btn-warning btn-sm btn-circle"></button>
-                            Preferencial
-                        </div>
-                        <div class="col-3">
-                            <button type="button" class="disabled btn btn-danger btn-sm btn-circle"></button>
-                            Ocupado
-                        </div>
-                        <div class="col-3">
-                            <button type="button" class="disabled btn btn-success btn-sm btn-circle"></button>
-                            Mis reservas
-                        </div>
+                    </div>
+                    <div class="m-3 text-center">
+                        <button type="button" class="btn btn-primary btn-lg">Reservar</button>
+                        <a href="{{route('pagarReserva', $reserva->id)}}" class="btn btn-primary btn-lg">Pagar</a>
                     </div>
                 </div>
             </div>

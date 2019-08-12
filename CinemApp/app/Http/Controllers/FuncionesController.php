@@ -55,7 +55,7 @@ class FuncionesController extends Controller
         $funcion = Funcion::findOrFail($id);
         $usuario = $request->user();
 
-        $misSillas = $funcion->getSillasReservadas($usuario);
+        $reserva = $funcion->getReservaPorUsuario($usuario);
         $sillasOcupadas = $funcion->getSillasOcupadas($usuario);
 
         $sillas = [];
@@ -65,7 +65,7 @@ class FuncionesController extends Controller
                     'letra' => $silla->letra,
                     'numero' => $silla->numero,
                     'esGeneral' => $silla->esGeneral,
-                    'estaReservada' => $misSillas->contains($silla),
+                    'estaReservada' => $reserva->sillas->contains($silla),
                     'estaOcupada' => $sillasOcupadas->contains($silla)]
             );
         }
@@ -73,7 +73,7 @@ class FuncionesController extends Controller
         return view('realizarReserva',
             ['funcion' => $funcion,
                 'sillas' => $sillas,
-                'misSillas' => $misSillas]
+                'reserva' => $reserva]
         );
     }
 
