@@ -36,6 +36,9 @@
             <a class="nav-link" href="{{ route('peliculas.index') }}">
                 {{'Películas'}}
             </a>
+            <a class="nav-link" href="{{ route('salas.index') }}">
+                {{'Salas'}}
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">
