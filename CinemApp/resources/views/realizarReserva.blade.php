@@ -115,7 +115,7 @@
                         <form action="{{route('realizarReserva', $funcion->id)}}" method="post">
                             @csrf
                             <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
-                            <a href="{{route('pagarReserva', $reserva->id)}}" class="btn btn-primary btn-lg">Pagar</a>
+                            <a href="{{route('pagarReserva', $reserva->id)}}" class="btn btn-success btn-lg">Pagar</a>
                         </form>
                     </div>
                 </div>
