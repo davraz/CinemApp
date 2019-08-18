@@ -20,6 +20,7 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('/reservas', 'ReservasController')->names('reservas');
 Route::resource('/peliculas', 'PeliculasController')->names('peliculas');
+Route::resource('/salas', 'SalasController')->names('salas');
 
 Route::get('/funciones', 'FuncionesController@find')->name('funciones');
 Route::get('/funciones/{id}/reservar', 'FuncionesController@realizarReserva')->name('realizarReserva');
