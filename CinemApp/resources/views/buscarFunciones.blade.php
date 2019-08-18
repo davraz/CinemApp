@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
+@section('title', 'Buscar Funciones')
+
 @section('content')
     <div class="container">
-        <h1 class="text-center">Buscar Funciones</h1>
         <form class="form-inline my-3">
             <label for="date" class="sr-only">Fecha</label>
             <input type="date" id="date" name="date" class="form-control form-inline mr-3" placeholder="Fecha"

@@ -23,6 +23,7 @@ Route::resource('/peliculas', 'PeliculasController')->names('peliculas');
 
 Route::get('/funciones', 'FuncionesController@find')->name('funciones');
 Route::get('/funciones/{id}/reservar', 'FuncionesController@realizarReserva')->name('realizarReserva');
+Route::post('/funciones/{id}/reservar', 'FuncionesController@confirmarRealizarReserva')->name('realizarReserva');
 Route::post('/funciones/{id}/reservar/{sillaID}', 'FuncionesController@reservarSilla')->name('reservarSilla');
 Route::get('/reservas/{id}/pagar', 'ReservasController@confirmarPagarReserva')->name('pagarReserva');
 Route::post('/reservas/{id}/pagar', 'ReservasController@pagarReserva')->name('pagarReserva');

@@ -31,12 +31,12 @@ class PeliculasTableSeeder extends Seeder
         ]);
 
         Pelicula::insert([
-            'titulo' => 'Annabelle Comes Home',
-            'director' => 'Gary Dauberman',
-            'duracion' => 106,
-            'genero' => 'Terror sobrenatural',
+            'titulo' => 'Once Upon a Time in Hollywood',
+            'director' => 'Quentin Tarantino',
+            'duracion' => 159,
+            'genero' => 'Comedia',
             'censura' => '12+',
-            'portada' => 'http://t0.gstatic.com/images?q=tbn:ANd9GcRcrIV9omphHitYNfiMQNiIgx6vhH_DKa_kdxBB3NnKAmTzFbV0'
+            'portada' => 'https://www.cartelera.com.uy/imagenes_espectaculos/moviedetail13/27482.jpg'
         ]);
     }
 }

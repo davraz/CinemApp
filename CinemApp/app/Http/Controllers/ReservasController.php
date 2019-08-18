@@ -105,7 +105,7 @@ class ReservasController extends Controller
         $reserva->delete();
 
         return redirect(route('reservas.index'))
-            ->with('message', 'Reserva eliminada correctamente');
+            ->with('mensaje', 'Reserva eliminada correctamente');
     }
 
     public function confirmarPagarReserva(Request $request, $id)
@@ -143,6 +143,6 @@ class ReservasController extends Controller
         $medioDePago->pagar($reserva);
 
         return redirect(route('pagarReserva', $id))
-            ->with('message', 'Pago realizado con éxito');
+            ->with('mensaje', 'Pago realizado con éxito');
     }
 }

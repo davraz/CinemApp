@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Realizar Reserva')
+
 @section('content')
     <div class="container">
         @if($errors->any())
@@ -9,11 +11,11 @@
                 @endforeach
             </div>
         @endif
-        @isset($mensaje)
-            <div class="alert alert-primary" role="alert">
-                {{$mensaje}}
+        @if (session('mensaje'))
+            <div class="alert alert-success" role="alert">
+                {{session('mensaje')}}
             </div>
-        @endisset
+        @endif
         @isset($funcion)
             <div class="row">
                 <div class="col-md-4">
@@ -110,8 +112,11 @@
                         </div>
                     </div>
                     <div class="m-3 text-center">
-                        <button type="button" class="btn btn-primary btn-lg">Reservar</button>
-                        <a href="{{route('pagarReserva', $reserva->id)}}" class="btn btn-primary btn-lg">Pagar</a>
+                        <form action="{{route('realizarReserva', $funcion->id)}}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-primary btn-lg">Reservar</button>
+                            <a href="{{route('pagarReserva', $reserva->id)}}" class="btn btn-primary btn-lg">Pagar</a>
+                        </form>
                     </div>
                 </div>
             </div>

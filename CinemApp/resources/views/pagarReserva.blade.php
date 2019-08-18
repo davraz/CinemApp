@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Pagar Reserva')
+
 @section('content')
     <div class="container">
         <h1 class="text-center">Pagar Reserva</h1>
@@ -11,9 +13,9 @@
                 @endforeach
             </div>
         @endif
-        @if (session('message'))
+        @if (session('mensaje'))
             <div class="alert alert-success" role="alert">
-                {{session('message')}}
+                {{session('mensaje')}}
             </div>
         @endif
         @if(isset($reserva) && isset($mediosDePago))

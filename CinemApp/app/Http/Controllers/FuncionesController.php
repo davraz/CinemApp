@@ -77,6 +77,19 @@ class FuncionesController extends Controller
         );
     }
 
+    public function confirmarRealizarReserva(Request $request, $id)
+    {
+        $funcion = Funcion::findOrFail($id);
+
+        if (!($funcion->horasParaIniciar >= 2))
+        {
+            return redirect(route('realizarReserva', $id))
+                ->withErrors(['No se puede realizar la reserva porque faltan menos de dos horas para que inicie la función']);
+        }
+        return redirect(route('realizarReserva', $id))
+            ->with('mensaje', 'Reserva realizada correctamente');
+    }
+
     public function reservarSilla(Request $request, $id, $sillaID)
     {
         $funcion = Funcion::findOrFail($id);

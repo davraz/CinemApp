@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
+@section('title', 'Gestionar Reservas')
+
 @section('content')
     <div class="container">
-        <h1 class="text-center">Gestionar Reservas</h1>
-
         @if($errors->any())
             <div class="alert alert-danger">
                 @foreach($errors->all() as $error)
@@ -11,9 +11,9 @@
                 @endforeach
             </div>
         @endif
-        @if (session('message'))
+        @if (session('mensaje'))
             <div class="alert alert-success" role="alert">
-                {{session('message')}}
+                {{session('mensaje')}}
             </div>
         @endif
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
 class Funcion extends Model
@@ -40,6 +41,17 @@ class Funcion extends Model
     {
         return "Sala: " . $this->sala->numero . " - "
             . Carbon::parse($this['hora_inicio'])->format('h:i A');
+    }
+
+    public function getHorasParaIniciarAttribute()
+    {
+        $now = new Datetime();
+        $inicio = new DateTime($this->hora_inicio);
+        $diff = $inicio->diff($now);
+
+        $horas = ($diff->days*24) + $diff->h + ($diff->m/60);
+
+        return $horas;
     }
 
     public function getReservaPorUsuario($usuario)
