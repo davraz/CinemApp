@@ -15,7 +15,7 @@ class FuncionesController extends Controller
         $this->middleware('auth');
     }
 
-    public function Find(Request $request)
+    public function find(Request $request)
     {
         $validData = $request->validate([
             'date' => 'date'
@@ -116,4 +116,26 @@ class FuncionesController extends Controller
     {
         return $peliculas->isEmpty();
     }
+
+    public function listarFunciones(Request $request)
+    {
+        
+        $peliculas = Pelicula::all();
+        $mensaje = null;
+
+        if ($this->hayFunciones($peliculas)) {
+            $mensaje = "No hay funciones programadas";
+        }
+
+        return view('listarFunciones', [
+            'peliculas' => $peliculas,
+            'mensaje' => $mensaje
+        ]);
+    }
+
+    public function create()
+    {
+        return view('crearFunciones');
+    }
+
 }
