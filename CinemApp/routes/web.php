@@ -18,18 +18,15 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::resource('/reservas', 'ReservasController')->names('reservas');
-Route::resource('/mediosDePago', 'MediosDePagoController')->names('mediosDePago');
-Route::resource('/peliculas', 'PeliculasController')->names('peliculas');
-Route::resource('/salas', 'SalasController')->names('salas');
-
-Route::get('/funciones', 'FuncionesController@find')->name('funciones');
-Route::get('/funciones/listaFunciones', 'FuncionesController@listarFunciones')->name('listarFunciones');
-Route::get('/funciones/listaFunciones/create', 'FuncionesController@create')->name('create');
+Route::get('/funciones/buscar', 'FuncionesController@find')->name('buscarFunciones');
 Route::get('/funciones/{id}/reservar', 'FuncionesController@realizarReserva')->name('realizarReserva');
 Route::post('/funciones/{id}/reservar', 'FuncionesController@confirmarRealizarReserva')->name('realizarReserva');
 Route::post('/funciones/{id}/reservar/{sillaID}', 'FuncionesController@reservarSilla')->name('reservarSilla');
 Route::get('/reservas/{id}/pagar', 'ReservasController@confirmarPagarReserva')->name('pagarReserva');
 Route::post('/reservas/{id}/pagar', 'ReservasController@pagarReserva')->name('pagarReserva');
 
-
+Route::resource('/reservas', 'ReservasController')->names('reservas');
+Route::resource('/mediosDePago', 'MediosDePagoController')->names('mediosDePago');
+Route::resource('/peliculas', 'PeliculasController')->names('peliculas');
+Route::resource('/salas', 'SalasController')->names('salas');
+Route::resource('/funciones', 'FuncionesController')->names('funciones');

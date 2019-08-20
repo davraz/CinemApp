@@ -27,7 +27,7 @@
             <a class="navbar-brand" href="{{ route('home') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
-            <a class="nav-link" href="{{ route('funciones') }}">
+            <a class="nav-link" href="{{ route('buscarFunciones') }}">
                 {{'Funciones'}}
             </a>
             <a class="nav-link" href="{{ route('reservas.index') }}">
@@ -42,8 +42,8 @@
             <a class="nav-link" href="{{ route('salas.index') }}">
                 {{'Salas'}}
             </a>
-            <a class="nav-link" href="{{ route('listarFunciones') }}">
-                {{'Lista Funciones'}}
+            <a class="nav-link" href="{{ route('funciones.index') }}">
+                {{'Funciones'}}
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"

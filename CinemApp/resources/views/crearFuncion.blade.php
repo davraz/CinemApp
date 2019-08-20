@@ -22,10 +22,10 @@
             <div class="form-group">
                 <label for="hora_fin">Hora de fin</label>
                 <input type="time" class="form-control" id="hora_fin" placeholder="Ingresa la hora de fin...">
-            </div>            
+            </div>
             <div class="text-center">
                 <button type="submit" class="btn btn-success">Crear función</button>
-                <a href="{{route('listarFunciones')}}" role="button" class="btn btn-danger">Cancelar</a>
+                <a href="{{route('funciones.index')}}" role="button" class="btn btn-danger">Cancelar</a>
             </div>
 
         </form>

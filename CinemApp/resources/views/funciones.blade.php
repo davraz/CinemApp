@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
+@section('title','Funciones');
+
 @section('content')
     <div class="container">
-        <h1 class="text-center">Listar Funciones</h1>     
-        <a class="btn btn-success" href="{{route('create')}}" role="button">Nueva función</a>
+        <a class="btn btn-success" href="{{route('funciones.create')}}" role="button">Nueva función</a>
         <br />
-        <br />   
+        <br />
         @if($errors->any())
             <div class="alert alert-danger">
                 @foreach($errors->all() as $error)

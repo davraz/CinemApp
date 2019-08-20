@@ -6,13 +6,118 @@ use App\Funcion;
 use App\Pelicula;
 use App\Silla;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 
 class FuncionesController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $peliculas = Pelicula::all();
+        $mensaje = null;
+
+        if ($this->hayFunciones($peliculas)) {
+            $mensaje = "No hay funciones programadas";
+        }
+
+        return view('funciones', [
+            'peliculas' => $peliculas,
+            'mensaje' => $mensaje
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('crearFuncion');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $validData =$request->validate([
+            'titulo' => 'required|max:255',
+            'genero' => 'required|',
+            'director' => 'required',
+            'duracion' => 'required',
+            'censura' => 'required',
+            'portada' => 'required|url'
+        ]);
+
+        $pelicula = new Pelicula();
+        $pelicula->titulo = $validData['titulo'];
+        $pelicula->genero = $validData['genero'];
+        $pelicula->director = $validData['director'];
+        $pelicula->duracion = $validData['duracion'];
+        $pelicula->censura = $validData['censura'];
+        $pelicula->portada = $validData['portada'];
+
+        $pelicula->save();
+
+        return redirect(route('peliculas.index'))
+            ->with('mensaje', 'Película creada correctamente');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 
     public function find(Request $request)
@@ -44,7 +149,7 @@ class FuncionesController extends Controller
             }
         }
 
-        return view('BuscarFunciones', [
+        return view('buscarFunciones', [
             'peliculas' => $peliculas,
             'mensaje' => $mensaje
         ]);
@@ -129,25 +234,4 @@ class FuncionesController extends Controller
     {
         return $peliculas->isEmpty();
     }
-
-    public function listarFunciones(Request $request)
-    {
-        $peliculas = Pelicula::all();
-        $mensaje = null;
-
-        if ($this->hayFunciones($peliculas)) {
-            $mensaje = "No hay funciones programadas";
-        }
-
-        return view('listarFunciones', [
-            'peliculas' => $peliculas,
-            'mensaje' => $mensaje
-        ]);
-    }
-
-    public function create()
-    {
-        return view('crearFunciones');
-    }
-
 }
