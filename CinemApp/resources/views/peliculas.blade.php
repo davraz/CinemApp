@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
+@section('title', 'Películas')
+
 @section('content')
     <div class="container">
+        @if (session('mensaje'))
+            <div class="alert alert-success" role="alert">
+                {{session('mensaje')}}
+            </div>
+        @endif
         <a class="btn btn-success" href="{{route('peliculas.create')}}" role="button">Nueva película</a>
         <br />
         <br />

@@ -42,7 +42,27 @@ class PeliculasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validData =$request->validate([
+            'titulo' => 'required|max:255',
+            'genero' => 'required|',
+            'director' => 'required',
+            'duracion' => 'required',
+            'censura' => 'required',
+            'portada' => 'required|url'
+        ]);
+
+        $pelicula = new Pelicula();
+        $pelicula->titulo = $validData['titulo'];
+        $pelicula->genero = $validData['genero'];
+        $pelicula->director = $validData['director'];
+        $pelicula->duracion = $validData['duracion'];
+        $pelicula->censura = $validData['censura'];
+        $pelicula->portada = $validData['portada'];
+
+        $pelicula->save();
+
+        return redirect(route('peliculas.index'))
+            ->with('mensaje', 'Película creada correctamente');
     }
 
     /**

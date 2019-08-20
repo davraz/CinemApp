@@ -132,7 +132,6 @@ class FuncionesController extends Controller
 
     public function listarFunciones(Request $request)
     {
-        
         $peliculas = Pelicula::all();
         $mensaje = null;
 
