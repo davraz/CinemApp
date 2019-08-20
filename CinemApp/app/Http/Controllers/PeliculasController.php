@@ -132,6 +132,11 @@ class PeliculasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pelicula = Pelicula::findOrFail($id);
+
+        $pelicula->delete();
+
+        return redirect(route('peliculas.index'))
+            ->with('mensaje', 'Película eliminada correctamente');
     }
 }

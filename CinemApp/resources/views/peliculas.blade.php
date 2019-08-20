@@ -22,8 +22,12 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <div class="text-right">
-                                    <a href="{{route('peliculas.edit', $pelicula->id)}}" class="btn btn-primary">Editar</a>
-                                    <a href="{{route('peliculas.destroy', $pelicula->id)}}" class="btn btn-danger">Eliminar</a>
+                                    <form method="post" action="{{route('peliculas.destroy', $pelicula->id)}}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="{{route('peliculas.edit', $pelicula->id)}}" class="btn btn-primary">Editar</a>
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
                                 </div>
                                 <h5 class="card-title">Título: {{$pelicula->titulo}}</h5>
                                 <p class="card-text">Género: {{$pelicula->genero}}</p>
