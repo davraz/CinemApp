@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Funcion;
 use App\Pelicula;
+use App\Sala;
 use App\Silla;
 use Illuminate\Http\Request;
 
@@ -41,18 +42,24 @@ class FuncionesController extends Controller
      */
     public function create()
     {
-        return view('crearFuncion');
+        $peliculas = Pelicula::all();
+        $salas = Sala::all();
+
+        return view('crearFuncion', [
+            'peliculas' => $peliculas,
+            'salas' => $salas
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validData =$request->validate([
+        $validData = $request->validate([
             'titulo' => 'required|max:255',
             'genero' => 'required|',
             'director' => 'required',
@@ -78,7 +85,7 @@ class FuncionesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -89,7 +96,7 @@ class FuncionesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -100,8 +107,8 @@ class FuncionesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -112,7 +119,7 @@ class FuncionesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -186,8 +193,7 @@ class FuncionesController extends Controller
     {
         $funcion = Funcion::findOrFail($id);
 
-        if (!($funcion->horasParaIniciar >= 2))
-        {
+        if (!($funcion->horasParaIniciar >= 2)) {
             return redirect(route('realizarReserva', $id))
                 ->withErrors(['No se puede realizar la reserva porque faltan menos de dos horas para que inicie la función']);
         }

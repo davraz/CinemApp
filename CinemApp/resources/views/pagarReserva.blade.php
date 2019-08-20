@@ -57,7 +57,6 @@
                             </option>
                         @endforeach
                     </select>
-
                     <br/>
                     <input type="submit" class="btn btn-success" value="Pagar">
                     <a href="{{route('mediosDePago.create')}}" class="btn btn-primary">Agregar medio de pago</a>
