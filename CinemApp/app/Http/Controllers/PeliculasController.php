@@ -37,12 +37,12 @@ class PeliculasController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $validData =$request->validate([
+        $validData = $request->validate([
             'titulo' => 'required|max:255',
             'genero' => 'required|',
             'director' => 'required',
@@ -68,7 +68,7 @@ class PeliculasController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -79,30 +79,55 @@ class PeliculasController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $pelicula = Pelicula::findOrFail($id);
+
+        return view('editarPelicula', [
+            'pelicula' => $pelicula
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $pelicula = Pelicula::findOrFail($id);
+
+        $validData = $request->validate([
+            'titulo' => 'required|max:255',
+            'genero' => 'required|',
+            'director' => 'required',
+            'duracion' => 'required',
+            'censura' => 'required',
+            'portada' => 'required|url'
+        ]);
+
+        $pelicula->titulo = $validData['titulo'];
+        $pelicula->genero = $validData['genero'];
+        $pelicula->director = $validData['director'];
+        $pelicula->duracion = $validData['duracion'];
+        $pelicula->censura = $validData['censura'];
+        $pelicula->portada = $validData['portada'];
+
+        $pelicula->save();
+
+        return redirect(route('peliculas.index'))
+            ->with('mensaje', 'Película actualizada correctamente');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

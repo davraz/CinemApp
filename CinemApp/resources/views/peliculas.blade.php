@@ -22,8 +22,8 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <div class="text-right">
-                                    <a href="#" class="btn btn-primary">Editar</a>
-                                    <a href="#" class="btn btn-danger">Eliminar</a>
+                                    <a href="{{route('peliculas.edit', $pelicula->id)}}" class="btn btn-primary">Editar</a>
+                                    <a href="{{route('peliculas.destroy', $pelicula->id)}}" class="btn btn-danger">Eliminar</a>
                                 </div>
                                 <h5 class="card-title">Título: {{$pelicula->titulo}}</h5>
                                 <p class="card-text">Género: {{$pelicula->genero}}</p>
