@@ -42,6 +42,9 @@
             <a class="nav-link" href="{{ route('salas.index') }}">
                 {{'Salas'}}
             </a>
+            <a class="nav-link" href="{{ route('listarFunciones') }}">
+                {{'Lista Funciones'}}
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
     <h1 class="text-center">Salas</h1>
-    <a class="btn btn-success" href="{{route('peliculas.create')}}" role="button">Nueva sala</a>
+    <a class="btn btn-success" href="{{route('salas.create')}}" role="button">Nueva sala</a>
         <br />
         <br />
     
