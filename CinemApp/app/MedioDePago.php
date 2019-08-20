@@ -20,7 +20,7 @@ class MedioDePago extends Model
 
     public function pagar($reserva)
     {
-        $compra = $reserva->silla->precio;
+        $compra = $reserva->total ;
 
         if ($this->tieneSaldoSuficiente($compra)) {
             $this->saldo = $this->saldo - $compra;

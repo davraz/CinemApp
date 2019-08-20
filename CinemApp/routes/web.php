@@ -19,6 +19,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('/reservas', 'ReservasController')->names('reservas');
+Route::resource('/mediosDePago', 'MediosDePagoController')->names('mediosDePago');
 Route::resource('/peliculas', 'PeliculasController')->names('peliculas');
 Route::resource('/salas', 'SalasController')->names('salas');
 

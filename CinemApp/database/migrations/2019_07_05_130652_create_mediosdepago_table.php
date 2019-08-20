@@ -17,6 +17,9 @@ class CreateMediosdepagoTable extends Migration
             $table->bigIncrements('id');
             $table->double('saldo');
             $table->string('tipo');
+            $table->string('numero')->nullable();
+            $table->string('expiracion')->nullable();
+            $table->unsignedInteger('cvv')->nullable();
             $table->UnsignedBigInteger('usuario_id');
             $table->foreign('usuario_id')
                 ->references('id')->on('usuarios')

@@ -17,14 +17,17 @@ class MediosDePagoTableSeeder extends Seeder
 
         foreach ($usuarios as $usuario) {
             MedioDePago::Insert([
-                'saldo' => 20000,
-                'tipo' => 'Tarjeta de cine',
+                'saldo' => 100000,
+                'tipo' => 'TarjetaDeCine',
                 'usuario_id' => $usuario->id
             ]);
 
             MedioDePago::Insert([
-                'saldo' => 5000,
-                'tipo' => 'Tarjeta de crédito',
+                'saldo' => 1200000,
+                'tipo' => 'TarjetaDeCredito',
+                'numero' => '1111-2222-3333-4444-5555-6666',
+                'expiracion' => '10/24',
+                'cvv' => 765,
                 'usuario_id' => $usuario->id
             ]);
         }

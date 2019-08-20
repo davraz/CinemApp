@@ -31,7 +31,10 @@
                 {{'Funciones'}}
             </a>
             <a class="nav-link" href="{{ route('reservas.index') }}">
-                {{'Mis Reservas'}}
+                {{'Reservas'}}
+            </a>
+            <a class="nav-link" href="{{ route('mediosDePago.index') }}">
+                {{'Medios de pago'}}
             </a>
             <a class="nav-link" href="{{ route('peliculas.index') }}">
                 {{'Películas'}}
