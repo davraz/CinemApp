@@ -43,8 +43,6 @@ class SalasController extends Controller
      */
     public function store(Request $request)
     {
-        $letras = range('A','Z');
-
         $validData = $request->validate([
             'numero' => 'required|integer',
             'columnas' => 'required|integer|min:5|max:15',
@@ -59,20 +57,7 @@ class SalasController extends Controller
 
         $sala->save();
 
-        for ($i = 1; $i <= $sala->filas; $i++)
-        {
-            for ($j = 1; $j <= $sala->columnas; $j++)
-            {
-                $tipo = $i <= $sala->filas - 2 ? 'General' : 'Preferencial';
-
-                Silla::insert([
-                    'letra' => $letras[$i - 1],
-                    'numero' => $j,
-                    'tipo' => $tipo,
-                    'sala_id' => $sala->id
-                ]);
-            }
-        }
+        $sala->asignarSillas();
 
         return redirect(route('salas.index'))
             ->with('mensaje', 'Sala creada correctamente');
@@ -97,7 +82,11 @@ class SalasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sala = Sala::findOrFail($id);
+
+        return view('editarSala', [
+            'sala' => $sala
+        ]);
     }
 
     /**
@@ -109,7 +98,24 @@ class SalasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sala = Sala::findOrFail($id);
+
+        $validData = $request->validate([
+            'numero' => 'required|integer',
+            'columnas' => 'required|integer|min:5|max:15',
+            'filas' => 'required|integer|min:5|max:20'
+        ]);
+
+        $sala->numero = $validData['numero'];
+        $sala->columnas = $validData['columnas'];
+        $sala->filas = $validData['filas'];
+
+        $sala->save();
+
+        $sala->asignarSillas();
+
+        return redirect(route('salas.index'))
+            ->with('mensaje', 'Sala actualizada correctamente');
     }
 
     /**

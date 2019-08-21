@@ -15,24 +15,9 @@ class SillasTableSeeder extends Seeder
     {
         $salas = Sala::all();
 
-        $letras = range('A','Z');
-
         foreach ($salas as $sala)
         {
-            for ($i = 1; $i <= $sala->filas; $i++)
-            {
-                for ($j = 1; $j <= $sala->columnas; $j++)
-                {
-                    $tipo = $i <= $sala->filas - 2 ? 'General' : 'Preferencial';
-
-                    Silla::insert([
-                        'letra' => $letras[$i - 1],
-                        'numero' => $j,
-                        'tipo' => $tipo,
-                        'sala_id' => $sala->id
-                    ]);
-                }
-            }
+            $sala->asignarSillas();
         }
     }
 }
