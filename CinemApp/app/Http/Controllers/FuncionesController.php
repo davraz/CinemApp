@@ -22,16 +22,10 @@ class FuncionesController extends Controller
      */
     public function index()
     {
-        $peliculas = Pelicula::all();
-        $mensaje = null;
-
-        if ($this->hayFunciones($peliculas)) {
-            $mensaje = "No hay funciones programadas";
-        }
+        $funciones = Funcion::all();
 
         return view('funciones', [
-            'peliculas' => $peliculas,
-            'mensaje' => $mensaje
+            'funciones' => $funciones,
         ]);
     }
 
