@@ -9,9 +9,7 @@
                 {{session('mensaje')}}
             </div>
         @endif
-        <a class="btn btn-success" href="{{route('peliculas.create')}}" role="button">Nueva película</a>
-        <br />
-        <br />
+        <a class="btn btn-success mb-3" href="{{route('peliculas.create')}}" role="button">Nueva película</a>
         @isset($peliculas)
             @foreach($peliculas as $pelicula)
                 <div class="card mb-3">

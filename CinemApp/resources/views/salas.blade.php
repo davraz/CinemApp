@@ -4,7 +4,12 @@
 
 @section('content')
     <div class="container">
-        <a class="btn btn-success" href="{{route('salas.create')}}" role="button">Nueva sala</a>
+        @if (session('mensaje'))
+            <div class="alert alert-success" role="alert">
+                {{session('mensaje')}}
+            </div>
+        @endif
+        <a class="btn btn-success mb-3" href="{{route('salas.create')}}" role="button">Nueva sala</a>
         @isset($salas)
             @foreach($salas as $sala)
                 <div class="card mb-3">

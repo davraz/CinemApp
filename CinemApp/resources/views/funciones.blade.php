@@ -4,9 +4,7 @@
 
 @section('content')
     <div class="container">
-        <a class="btn btn-success" href="{{route('funciones.create')}}" role="button">Nueva función</a>
-        <br />
-        <br />
+        <a class="btn btn-success mb-3" href="{{route('funciones.create')}}" role="button">Nueva función</a>
         @if($errors->any())
             <div class="alert alert-danger">
                 @foreach($errors->all() as $error)
