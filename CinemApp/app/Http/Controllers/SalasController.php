@@ -22,9 +22,7 @@ class SalasController extends Controller
     {
         $salas = Sala::all();
 
-        $sillas = Silla::all();
-
-        return view('salas', ['salas' => $salas, 'sillas' => $sillas]);
+        return view('salas', ['salas' => $salas]);
     }
 
     /**
