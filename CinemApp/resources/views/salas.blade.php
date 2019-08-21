@@ -64,8 +64,12 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <a href="#" class="btn btn-primary">Editar</a>
-                            <a href="#" class="btn btn-danger">Eliminar</a>
+                            <form method="post" action="{{route('salas.destroy', $sala->id)}}">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{route('salas.edit', $sala->id)}}" class="btn btn-primary">Editar</a>
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
                         </div>
                     </div>
                 </div>

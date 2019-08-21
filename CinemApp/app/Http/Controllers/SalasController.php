@@ -120,6 +120,11 @@ class SalasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sala = Sala::findOrFail($id);
+
+        $sala->delete();
+
+        return redirect(route('salas.index'))
+            ->with('mensaje', 'Sala eliminada correctamente');
     }
 }
