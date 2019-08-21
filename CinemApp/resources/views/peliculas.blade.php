@@ -14,8 +14,8 @@
             @foreach($peliculas as $pelicula)
                 <div class="card mb-3">
                     <div class="row no-gutters">
-                        <div class="col-md-4.5">
-                            <img src="{{$pelicula->portada}}" class="card-img" alt="..." style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; width:300px">
+                        <div class="col-md-4 px-3 py-1">
+                            <img src="{{$pelicula->portada}}" class="card-img img-fluid p-3" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

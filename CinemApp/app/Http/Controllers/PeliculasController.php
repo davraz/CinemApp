@@ -21,7 +21,9 @@ class PeliculasController extends Controller
     {
         $peliculas = Pelicula::all();
 
-        return view('peliculas', ['peliculas' => $peliculas]);
+        return view('peliculas', [
+            'peliculas' => $peliculas
+        ]);
     }
 
     /**
