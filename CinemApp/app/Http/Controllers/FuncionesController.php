@@ -54,26 +54,24 @@ class FuncionesController extends Controller
     public function store(Request $request)
     {
         $validData = $request->validate([
-            'titulo' => 'required|max:255',
-            'genero' => 'required|',
-            'director' => 'required',
-            'duracion' => 'required',
-            'censura' => 'required',
-            'portada' => 'required|url'
+            'pelicula' => 'required|integer',
+            'sala' => 'required|integer',
+            'fecha' => 'required|date',
+            'hora_inicio' => 'required|date_format:H:i',
         ]);
 
-        $pelicula = new Pelicula();
-        $pelicula->titulo = $validData['titulo'];
-        $pelicula->genero = $validData['genero'];
-        $pelicula->director = $validData['director'];
-        $pelicula->duracion = $validData['duracion'];
-        $pelicula->censura = $validData['censura'];
-        $pelicula->portada = $validData['portada'];
+        $pelicula = Pelicula::findOrFail($validData['pelicula']);
 
-        $pelicula->save();
+        $funcion = new Funcion();
+        $funcion->pelicula_id = $validData['pelicula'];
+        $funcion->sala_id = $validData['sala'];
+        $funcion->hora_inicio = $validData['fecha'] . " " . $validData['hora_inicio'];
+        $funcion->hora_fin = $validData['fecha'] . " " . $validData['hora_inicio'];
 
-        return redirect(route('peliculas.index'))
-            ->with('mensaje', 'Película creada correctamente');
+        $funcion->save();
+
+        return redirect(route('funciones.index'))
+            ->with('mensaje', 'Función creada correctamente');
     }
 
     /**

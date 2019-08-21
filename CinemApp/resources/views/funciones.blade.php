@@ -4,19 +4,12 @@
 
 @section('content')
     <div class="container">
-        <a class="btn btn-success mb-3" href="{{route('funciones.create')}}" role="button">Nueva función</a>
-        @if($errors->any())
-            <div class="alert alert-danger">
-                @foreach($errors->all() as $error)
-                    {{$error}}
-                @endforeach
+        @if (session('mensaje'))
+            <div class="alert alert-success" role="alert">
+                {{session('mensaje')}}
             </div>
         @endif
-        @isset($mensaje)
-            <div class="alert alert-primary" role="alert">
-                {{$mensaje}}
-            </div>
-        @endisset
+        <a class="btn btn-success mb-3" href="{{route('funciones.create')}}" role="button">Nueva función</a>
         @isset($funciones)
             @foreach($funciones as $funcion)
                 <div class="card my-3">
@@ -27,8 +20,12 @@
                         <p class="card-text"><strong>Hora Inicio: </strong>{{$funcion->hora_inicio}}</p>
                         <p class="card-text"><strong>Hora Fin: </strong>{{$funcion->hora_fin}}</p>
                         <div class="text-right">
-                            <a href="#" class="btn btn-primary">Editar</a>
-                            <a href="#" class="btn btn-danger">Eliminar</a>
+                            <form method="post" action="{{route('funciones.destroy', $funcion->id)}}">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{route('funciones.edit', $funcion->id)}}" class="btn btn-primary">Editar</a>
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
                         </div>
                     </div>
                 </div>
