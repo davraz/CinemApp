@@ -64,7 +64,8 @@
                             </div>
                         </div>
                         <div class="text-right">
-                            <form method="post" action="{{route('salas.destroy', $sala->id)}}">
+                            <form method="post" action="{{route('salas.destroy', $sala->id)}}"
+                                  onclick="return confirm('¿Está seguro que desea eliminar la sala seleccionada?')">
                                 @csrf
                                 @method('DELETE')
                                 <a href="{{route('salas.edit', $sala->id)}}" class="btn btn-primary">Editar</a>
