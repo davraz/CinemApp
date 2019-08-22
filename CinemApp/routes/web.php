@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 
 Route::get('/funciones/buscar', 'FuncionesController@find')->name('buscarFunciones');
 Route::get('/funciones/{id}/reservar', 'FuncionesController@realizarReserva')->name('realizarReserva');
