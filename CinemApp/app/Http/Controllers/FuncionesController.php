@@ -116,10 +116,33 @@ class FuncionesController extends Controller
      * @param \Illuminate\Http\Request $request
      * @param int $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function update(Request $request, $id)
     {
-        //
+        $funcion = Funcion::findOrFail($id);
+
+        $validData = $request->validate([
+            'pelicula' => 'required|integer|exists:peliculas,id',
+            'sala' => 'required|integer|exists:salas,id',
+            'fecha' => 'required|date',
+            'hora_inicio' => 'required|date_format:H:i'
+        ]);
+
+        $pelicula = Pelicula::findOrFail($validData['pelicula']);
+
+        $hora_inicio = new CarbonImmutable($validData['fecha'] . " " . $validData['hora_inicio']);
+        $hora_fin = $hora_inicio->addMinutes($pelicula->duracion);
+
+        $funcion->pelicula_id = $validData['pelicula'];
+        $funcion->sala_id = $validData['sala'];
+        $funcion->hora_inicio = $hora_inicio;
+        $funcion->hora_fin = $hora_fin;
+
+        $funcion->save();
+
+        return redirect(route('funciones.index'))
+            ->with('mensaje', 'Función actualizada correctamente');
     }
 
     /**
