@@ -9,23 +9,29 @@
                 @csrf
                 <div class="form-group">
                     <label for="titulo">Película</label>
-                    <select id="pelicula" name="pelicula" class="form-control">
+                    <select id="pelicula" name="pelicula" class="form-control @error('pelicula') is-invalid @enderror">
                         @foreach ($peliculas as $pelicula)
                             <option value="{{ $pelicula->id }}">
                                 {{ $pelicula->titulo }}
                             </option>
                         @endforeach
                     </select>
+                    @error('pelicula')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="sala">Sala</label>
-                    <select id="pelicula" name="sala" class="form-control">
+                    <select id="sala" name="sala" class="form-control @error('sala') is-invalid @enderror">
                         @foreach ($salas as $sala)
                             <option value="{{ $sala->id }}">
                                 {{ $sala->numero }}
                             </option>
                         @endforeach
                     </select>
+                    @error('sala')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="fecha">Fecha</label>

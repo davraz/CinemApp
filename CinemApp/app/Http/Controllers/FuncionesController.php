@@ -6,6 +6,7 @@ use App\Funcion;
 use App\Pelicula;
 use App\Sala;
 use App\Silla;
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 
 class FuncionesController extends Controller
@@ -50,23 +51,27 @@ class FuncionesController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function store(Request $request)
     {
         $validData = $request->validate([
-            'pelicula' => 'required|integer',
-            'sala' => 'required|integer',
+            'pelicula' => 'required|integer|exists:peliculas,id',
+            'sala' => 'required|integer|exists:salas,id',
             'fecha' => 'required|date',
-            'hora_inicio' => 'required|date_format:H:i',
+            'hora_inicio' => 'required|date_format:H:i'
         ]);
 
         $pelicula = Pelicula::findOrFail($validData['pelicula']);
 
+        $hora_inicio = new CarbonImmutable($validData['fecha'] . " " . $validData['hora_inicio']);
+        $hora_fin = $hora_inicio->addMinutes($pelicula->duracion);
+
         $funcion = new Funcion();
         $funcion->pelicula_id = $validData['pelicula'];
         $funcion->sala_id = $validData['sala'];
-        $funcion->hora_inicio = $validData['fecha'] . " " . $validData['hora_inicio'];
-        $funcion->hora_fin = $validData['fecha'] . " " . $validData['hora_inicio'];
+        $funcion->hora_inicio = $hora_inicio;
+        $funcion->hora_fin = $hora_fin;
 
         $funcion->save();
 

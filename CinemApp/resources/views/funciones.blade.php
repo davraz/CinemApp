@@ -16,9 +16,9 @@
                     <div class="card-body">
                         <h4 class="card-title"><strong>Película:</strong> {{$funcion->pelicula->titulo}}</h4>
                         <p class="card-text"><strong>Sala: </strong>{{$funcion->sala->numero}}</p>
-                        <p class="card-text"><strong>Fecha: </strong>{{$funcion->hora_inicio}}</p>
-                        <p class="card-text"><strong>Hora Inicio: </strong>{{$funcion->hora_inicio}}</p>
-                        <p class="card-text"><strong>Hora Fin: </strong>{{$funcion->hora_fin}}</p>
+                        <p class="card-text"><strong>Fecha: </strong>{{$funcion->fechaConFormato}}</p>
+                        <p class="card-text"><strong>Hora Inicio: </strong>{{$funcion->horaConFormato}}</p>
+                        <p class="card-text"><strong>Hora Fin: </strong>{{$funcion->horaFinConFormato}}</p>
                         <div class="text-right">
                             <form method="post" action="{{route('funciones.destroy', $funcion->id)}}">
                                 @csrf

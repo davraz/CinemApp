@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,12 +29,18 @@ class Funcion extends Model
     public function getFechaConFormatoAttribute()
     {
         return Carbon::parse($this->hora_inicio)
-        ->format('Y-m-d');
+            ->format('Y-m-d');
     }
 
     public function getHoraConFormatoAttribute()
     {
         return Carbon::parse($this->hora_inicio)
+            ->format('h:i A');
+    }
+
+    public function getHoraFinConFormatoAttribute()
+    {
+        return Carbon::parse($this->hora_fin)
             ->format('h:i A');
     }
 
@@ -45,11 +52,9 @@ class Funcion extends Model
 
     public function getHorasParaIniciarAttribute()
     {
-        $now = new Datetime();
-        $inicio = new DateTime($this->hora_inicio);
-        $diff = $inicio->diff($now);
-
-        $horas = ($diff->days*24) + $diff->h + ($diff->m/60);
+        $now = CarbonImmutable::now();
+        $inicio = new CarbonImmutable($this->hora_inicio);
+        $horas = $inicio->diffInHours($now);
 
         return $horas;
     }
