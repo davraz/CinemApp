@@ -23,7 +23,7 @@ class MediosDePagoController extends Controller
      */
     public function create()
     {
-        //
+        return view('agregarMedioDePago');
     }
 
     /**

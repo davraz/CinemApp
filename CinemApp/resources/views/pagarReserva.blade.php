@@ -53,7 +53,7 @@
                     <select id="medioDePago" name="medioDePago" class="form-control">
                         @foreach ($mediosDePago as $medioDePago)
                             <option value="{{ $medioDePago->id }}">
-                                {{ $medioDePago->tipo }}
+                                {{ $medioDePago->info }}
                             </option>
                         @endforeach
                     </select>

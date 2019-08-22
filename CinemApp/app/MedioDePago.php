@@ -13,6 +13,12 @@ class MedioDePago extends Model
         $this->belongsTo(Usuario::class);
     }
 
+    public function getInfoAttribute()
+    {
+        return $this->tipo == "TarjetaDeCredito"
+            ? $this->numero : "Tarjeta de Cine";
+    }
+
     public function tieneSaldoSuficiente($compra)
     {
         return $this->saldo > $compra;
@@ -20,7 +26,7 @@ class MedioDePago extends Model
 
     public function pagar($reserva)
     {
-        $compra = $reserva->total ;
+        $compra = $reserva->total;
 
         if ($this->tieneSaldoSuficiente($compra)) {
             $this->saldo = $this->saldo - $compra;
