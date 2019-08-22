@@ -98,7 +98,16 @@ class FuncionesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $funcion = Funcion::findOrFail($id);
+
+        $peliculas = Pelicula::all();
+        $salas = Sala::all();
+
+        return view('editarFuncion', [
+            'funcion' => $funcion,
+            'peliculas' => $peliculas,
+            'salas' => $salas
+        ]);
     }
 
     /**

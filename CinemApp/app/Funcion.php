@@ -38,6 +38,12 @@ class Funcion extends Model
             ->format('h:i A');
     }
 
+    public function getHoraConFormato24HorasAttribute()
+    {
+        return Carbon::parse($this->hora_inicio)
+            ->format('H:i');
+    }
+
     public function getHoraFinConFormatoAttribute()
     {
         return Carbon::parse($this->hora_fin)
