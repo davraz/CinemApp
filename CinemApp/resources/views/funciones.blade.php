@@ -20,11 +20,11 @@
                         <p class="card-text"><strong>Hora Inicio: </strong>{{$funcion->horaConFormato}}</p>
                         <p class="card-text"><strong>Hora Fin: </strong>{{$funcion->horaFinConFormato}}</p>
                         <div class="text-right">
-                            <form method="post" action="{{route('funciones.destroy', $funcion->id)}}"
+                            <a href="{{route('funciones.edit', $funcion->id)}}" class="btn btn-primary">Editar</a>
+                            <form method="post" class="d-inline" action="{{route('funciones.destroy', $funcion->id)}}"
                                   onclick="return confirm('¿Está seguro que desea eliminar la función seleccionada?')">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{route('funciones.edit', $funcion->id)}}" class="btn btn-primary">Editar</a>
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
                         </div>

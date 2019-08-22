@@ -20,11 +20,11 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <div class="text-right">
-                                    <form method="post" action="{{route('peliculas.destroy', $pelicula->id)}}"
+                                    <a href="{{route('peliculas.edit', $pelicula->id)}}" class="btn btn-primary">Editar</a>
+                                    <form method="post" class="d-inline" action="{{route('peliculas.destroy', $pelicula->id)}}"
                                           onclick="return confirm('¿Está seguro que desea eliminar la película seleccionada?')">
                                         @csrf
                                         @method('DELETE')
-                                        <a href="{{route('peliculas.edit', $pelicula->id)}}" class="btn btn-primary">Editar</a>
                                         <button type="submit" class="btn btn-danger">Eliminar</button>
                                     </form>
                                 </div>
