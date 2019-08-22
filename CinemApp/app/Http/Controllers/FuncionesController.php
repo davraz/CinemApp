@@ -121,7 +121,12 @@ class FuncionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $funcion = Funcion::findOrFail($id);
+
+        $funcion->delete();
+
+        return redirect(route('funciones.index'))
+            ->with('mensaje', 'Función eliminada correctamente');
     }
 
     public function find(Request $request)
