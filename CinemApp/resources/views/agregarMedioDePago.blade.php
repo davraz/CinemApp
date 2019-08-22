@@ -9,16 +9,26 @@
             <div class="form-group">
                 <label for="numero">Número</label>
                 <input type="text" class="form-control @error('numero') is-invalid @enderror" name="numero" id="numero"
-                       placeholder="Ingresa el número de la tarjeta..." value="{{old('numero')}}">
+                       placeholder="Ingresa el número de la tarjeta de crédito..." value="{{old('numero')}}">
                 @error('numero')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
             <div class="form-group">
-                <label for="expiracion">Expiración</label>
-                <input type="text" class="form-control @error('expiracion') is-invalid @enderror" name="expiracion"
-                       id="expiracion" placeholder="Ingresa la expiración..." value="{{old('expiracion')}}">
-                @error('expiracion')
+                <label for="mes_expiracion">Més de expiración</label>
+                <input type="number" class="form-control @error('mes_expiracion') is-invalid @enderror"
+                       name="mes_expiracion" id="mes_expiracion" placeholder="Ingresa el més de expiración..."
+                       value="{{old('mes_expiracion')}}">
+                @error('mes_expiracion')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="año_expiracion">Año de expiración</label>
+                <input type="number" class="form-control @error('año_expiracion') is-invalid @enderror"
+                       name="año_expiracion" id="año_expiracion" placeholder="Ingresa el año de expiración..."
+                       value="{{old('año_expiracion')}}">
+                @error('año_expiracion')
                 <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>

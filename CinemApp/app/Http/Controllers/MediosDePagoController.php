@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\MedioDePago;
 use Illuminate\Http\Request;
 
 class MediosDePagoController extends Controller
@@ -34,7 +35,28 @@ class MediosDePagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $añoActual = date("y");
+        $user = $request->user();
+
+        $validData = $request->validate([
+            'numero' => 'required|integer|digits:16',
+            'mes_expiracion' => 'required|numeric|between:1,12',
+            'año_expiracion' => 'required|numeric|between:' . $añoActual . ','. ($añoActual + 10),
+            'cvv' => 'required|digits:3'
+        ]);
+
+        $medioDePago = new MedioDePago;
+        $medioDePago->numero = $validData['numero'];
+        $medioDePago->expiracion = $validData['mes_expiracion'] . '/' . $validData['año_expiracion'];
+        $medioDePago->cvv = $validData['cvv'];
+        $medioDePago->usuario_id = $user->id;
+        $medioDePago->tipo = 'TarjetaDeCredito';
+        $medioDePago->saldo = 1200000;
+
+        $medioDePago->save();
+
+        return redirect(route('mediosDePago.index'))
+            ->with('mensaje', 'Medio de pago agregado correctamente');
     }
 
     /**

@@ -24,7 +24,7 @@ return [
     'before' => 'The :attribute must be a date before :date.',
     'before_or_equal' => 'The :attribute must be a date before or equal to :date.',
     'between' => [
-        'numeric' => 'The :attribute must be between :min and :max.',
+        'numeric' => 'El campo :attribute debe estar entre :min y :max.',
         'file' => 'The :attribute must be between :min and :max kilobytes.',
         'string' => 'The :attribute must be between :min and :max characters.',
         'array' => 'The :attribute must have between :min and :max items.',
@@ -35,7 +35,7 @@ return [
     'date_equals' => 'The :attribute must be a date equal to :date.',
     'date_format' => 'The :attribute tiene un formato no válido.',
     'different' => 'The :attribute and :other must be different.',
-    'digits' => 'The :attribute must be :digits digits.',
+    'digits' => 'El campo :attribute debe ser de :digits dígitos.',
     'digits_between' => 'The :attribute must be between :min and :max digits.',
     'dimensions' => 'The :attribute has invalid image dimensions.',
     'distinct' => 'The :attribute field has a duplicate value.',
