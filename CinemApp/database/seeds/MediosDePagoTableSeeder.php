@@ -25,7 +25,7 @@ class MediosDePagoTableSeeder extends Seeder
             MedioDePago::Insert([
                 'saldo' => 1200000,
                 'tipo' => 'TarjetaDeCredito',
-                'numero' => '1111-2222-3333-4444-5555-6666',
+                'numero' => '1111222233334444',
                 'expiracion' => '10/24',
                 'cvv' => 765,
                 'usuario_id' => $usuario->id
