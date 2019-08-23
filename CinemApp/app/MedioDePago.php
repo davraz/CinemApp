@@ -10,13 +10,18 @@ class MedioDePago extends Model
 
     public function usuario()
     {
-        $this->belongsTo(Usuario::class);
+        return $this->belongsTo(Usuario::class);
     }
 
     public function getInfoAttribute()
     {
-        return $this->tipo == "TarjetaDeCredito"
+        return $this->esTarjetaDeCredito
             ? $this->numero : "Tarjeta de Cine";
+    }
+
+    public function getEsTarjetaDeCreditoAttribute()
+    {
+        return $this->tipo == "TarjetaDeCredito";
     }
 
     public function tieneSaldoSuficiente($compra)

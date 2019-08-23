@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\MedioDePago;
+use App\Usuario;
 use Illuminate\Http\Request;
 
 class MediosDePagoController extends Controller
@@ -12,9 +13,15 @@ class MediosDePagoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $usuario = Usuario::findOrFail($request->user()->id);
+
+        $mediosDePago = $usuario->mediosDePago;
+
+        return view('mediosDePago', [
+            'mediosDePago' => $mediosDePago
+        ]);
     }
 
     /**

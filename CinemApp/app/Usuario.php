@@ -38,10 +38,10 @@ class Usuario extends Authenticatable
     ];
 
     public function reservas(){
-        $this->hasMany(Reserva::class);
+        return $this->hasMany(Reserva::class);
     }
 
     public function mediosDePago(){
-        $this->hasMany(MedioDePago::class);
+        return $this->hasMany(MedioDePago::class);
     }
 }
