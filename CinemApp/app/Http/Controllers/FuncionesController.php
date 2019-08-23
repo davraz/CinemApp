@@ -187,7 +187,7 @@ class FuncionesController extends Controller
                         ->where('hora_inicio', '<=', date($date) . ' 23:59:59');
                 }])->get();
 
-                if ($this->hayFunciones($peliculas)) {
+                if (!$this->hayFunciones($peliculas)) {
                     $mensaje = "No hay funciones programadas para la fecha seleccionada";
                 }
             }
@@ -275,7 +275,7 @@ class FuncionesController extends Controller
 
     public function hayFunciones($peliculas)
     {
-        return $peliculas->isEmpty();
+        return !$peliculas->isEmpty();
     }
 
     public function calcularHoraFin($hora_inicio, $duracion)
