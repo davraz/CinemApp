@@ -230,10 +230,16 @@ class FuncionesController extends Controller
     {
         $funcion = Funcion::findOrFail($id);
 
+        $usuario = $request->user();
+        $reserva = $funcion->getReservaPorUsuario($usuario);
+
         if (!($funcion->horasParaIniciar >= 2)) {
             return redirect(route('realizarReserva', $id))
                 ->withErrors(['No se puede realizar la reserva porque faltan menos de dos horas para que inicie la función']);
         }
+
+        $reserva->save();
+
         return redirect(route('realizarReserva', $id))
             ->with('mensaje', 'Reserva realizada correctamente');
     }
