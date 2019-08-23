@@ -68,7 +68,7 @@ class FuncionesController extends Controller
         $pelicula = Pelicula::findOrFail($validData['pelicula']);
 
         $hora_inicio = new CarbonImmutable($validData['fecha'] . " " . $validData['hora_inicio']);
-        $hora_fin = $hora_inicio->addMinutes($pelicula->duracion);
+        $hora_fin = $this->calcularHoraFin($hora_inicio, $pelicula->duracion);
 
         $funcion = new Funcion();
         $funcion->pelicula_id = $validData['pelicula'];
@@ -135,7 +135,7 @@ class FuncionesController extends Controller
         $pelicula = Pelicula::findOrFail($validData['pelicula']);
 
         $hora_inicio = new CarbonImmutable($validData['fecha'] . " " . $validData['hora_inicio']);
-        $hora_fin = $hora_inicio->addMinutes($pelicula->duracion);
+        $hora_fin = $this->calcularHoraFin($hora_inicio, $pelicula->duracion);
 
         $funcion->pelicula_id = $validData['pelicula'];
         $funcion->sala_id = $validData['sala'];
@@ -276,5 +276,10 @@ class FuncionesController extends Controller
     public function hayFunciones($peliculas)
     {
         return $peliculas->isEmpty();
+    }
+
+    public function calcularHoraFin($hora_inicio, $duracion)
+    {
+        return $hora_inicio->addMinutes($duracion);
     }
 }
