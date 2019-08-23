@@ -108,6 +108,11 @@ class MediosDePagoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $medioDePago = MedioDePago::findOrFail($id);
+
+        $medioDePago->delete();
+
+        return redirect(route('mediosDePago.index'))
+            ->with('mensaje', 'Medio de pago eliminado correctamente');
     }
 }
