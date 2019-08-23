@@ -9,6 +9,13 @@
                 {{session('mensaje')}}
             </div>
         @endif
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    {{$error}}
+                @endforeach
+            </div>
+        @endif
         <a class="btn btn-success mb-3" href="{{route('peliculas.create')}}" role="button">Nueva película</a>
         @isset($peliculas)
             @foreach($peliculas as $pelicula)
@@ -20,8 +27,10 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <div class="text-right">
-                                    <a href="{{route('peliculas.edit', $pelicula->id)}}" class="btn btn-primary">Editar</a>
-                                    <form method="post" class="d-inline" action="{{route('peliculas.destroy', $pelicula->id)}}"
+                                    <a href="{{route('peliculas.edit', $pelicula->id)}}"
+                                       class="btn btn-primary">Editar</a>
+                                    <form method="post" class="d-inline"
+                                          action="{{route('peliculas.destroy', $pelicula->id)}}"
                                           onclick="return confirm('¿Está seguro que desea eliminar la película seleccionada?')">
                                         @csrf
                                         @method('DELETE')

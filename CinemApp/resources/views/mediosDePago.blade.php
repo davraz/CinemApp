@@ -9,6 +9,13 @@
                 {{session('mensaje')}}
             </div>
         @endif
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    {{$error}}
+                @endforeach
+            </div>
+        @endif
         <a class="btn btn-success mb-3" href="{{route('mediosDePago.create')}}" role="button">Agregar medio de pago</a>
         @isset($mediosDePago)
             @foreach($mediosDePago as $medioDePago)

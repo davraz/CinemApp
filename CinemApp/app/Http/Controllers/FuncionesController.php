@@ -25,9 +25,12 @@ class FuncionesController extends Controller
     {
         $funciones = Funcion::all();
 
+        $mensaje = $funciones->count() > 0 ?
+            null : "No hay funciones creadas actualmente";
+
         return view('funciones', [
             'funciones' => $funciones,
-        ]);
+        ])->withErrors([$mensaje]);
     }
 
     /**

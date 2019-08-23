@@ -21,9 +21,12 @@ class PeliculasController extends Controller
     {
         $peliculas = Pelicula::all();
 
+        $mensaje = $peliculas->count() > 0 ?
+            null : "No hay películas creadas actualmente";
+
         return view('peliculas', [
             'peliculas' => $peliculas
-        ]);
+        ])->withErrors([$mensaje]);
     }
 
     /**

@@ -9,6 +9,13 @@
                 {{session('mensaje')}}
             </div>
         @endif
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    {{$error}}
+                @endforeach
+            </div>
+        @endif
         <a class="btn btn-success mb-3" href="{{route('salas.create')}}" role="button">Nueva sala</a>
         @isset($salas)
             @foreach($salas as $sala)

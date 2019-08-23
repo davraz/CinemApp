@@ -22,7 +22,12 @@ class SalasController extends Controller
     {
         $salas = Sala::all();
 
-        return view('salas', ['salas' => $salas]);
+        $mensaje = $salas->count() > 0 ?
+            null : "No hay salas creadas actualmente";
+
+        return view('salas', [
+            'salas' => $salas
+        ])->withErrors([$mensaje]);
     }
 
     /**

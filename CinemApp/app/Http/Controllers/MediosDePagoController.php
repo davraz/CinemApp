@@ -19,9 +19,12 @@ class MediosDePagoController extends Controller
 
         $mediosDePago = $usuario->mediosDePago;
 
+        $mensaje = $mediosDePago->count() > 0 ?
+            null : "No tiene medios de pago registrados aún";
+
         return view('mediosDePago', [
             'mediosDePago' => $mediosDePago
-        ]);
+        ])->withErrors([$mensaje]);
     }
 
     /**
