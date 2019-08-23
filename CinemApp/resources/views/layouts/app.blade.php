@@ -27,24 +27,29 @@
             <a class="navbar-brand" href="{{ route('home') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
-            <a class="nav-link" href="{{ route('buscarFunciones') }}">
-                {{'Funciones'}}
-            </a>
-            <a class="nav-link" href="{{ route('reservas.index') }}">
-                {{'Reservas'}}
-            </a>
-            <a class="nav-link" href="{{ route('mediosDePago.index') }}">
-                {{'Medios de pago'}}
-            </a>
-            <a class="nav-link" href="{{ route('peliculas.index') }}">
-                {{'Películas'}}
-            </a>
-            <a class="nav-link" href="{{ route('salas.index') }}">
-                {{'Salas'}}
-            </a>
-            <a class="nav-link" href="{{ route('funciones.index') }}">
-                {{'Funciones'}}
-            </a>
+            @if (auth()->check())
+                @if (auth()->user()->isAdmin)
+                    <a class="nav-link" href="{{ route('peliculas.index') }}">
+                        {{'Películas'}}
+                    </a>
+                    <a class="nav-link" href="{{ route('salas.index') }}">
+                        {{'Salas'}}
+                    </a>
+                    <a class="nav-link" href="{{ route('funciones.index') }}">
+                        {{'Funciones'}}
+                    </a>
+                @else
+                    <a class="nav-link" href="{{ route('buscarFunciones') }}">
+                        {{'Funciones'}}
+                    </a>
+                    <a class="nav-link" href="{{ route('reservas.index') }}">
+                        {{'Reservas'}}
+                    </a>
+                    <a class="nav-link" href="{{ route('mediosDePago.index') }}">
+                        {{'Medios de pago'}}
+                    </a>
+                @endif
+            @endif
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ __('Toggle navigation') }}">

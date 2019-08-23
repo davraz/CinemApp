@@ -44,4 +44,9 @@ class Usuario extends Authenticatable
     public function mediosDePago(){
         return $this->hasMany(MedioDePago::class);
     }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->rol == 'Admin';
+    }
 }

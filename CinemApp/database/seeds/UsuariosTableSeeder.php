@@ -31,5 +31,14 @@ class UsuariosTableSeeder extends Seeder
             'rol' => 'Cliente',
             'password' => Hash::make('abcd1234')
         ]);
+
+        DB::table('usuarios')->insert([
+            'cedula' => '00000',
+            'nombre' => 'admin',
+            'apellido' => 'admin',
+            'email' => 'admin@gmail.com',
+            'rol' => 'Admin',
+            'password' => Hash::make('abcd1234')
+        ]);
     }
 }
